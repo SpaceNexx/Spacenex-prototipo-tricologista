@@ -443,7 +443,6 @@ footer a{color:var(--gold-2)}
         <button type="button" class="cond" data-c="caspa" aria-pressed="false">Caspa</button>
         <button type="button" class="cond" data-c="oleo" aria-pressed="false">Oleosidade</button>
         <button type="button" class="cond" data-c="foliculite" aria-pressed="false">Foliculite</button>
-        <button type="button" class="cond" data-c="rarefacao" aria-pressed="false">Rarefação</button>
         <button type="button" class="cond" data-c="areata" aria-pressed="false">Alopecia areata</button>
       </div>
       <div class="scope rv" id="scopeBox">
@@ -822,16 +821,15 @@ function updateTimeline(){
 (function(){
   const box=$("#scopeBox"),cv=$("#scope"),ctx=cv.getContext("2d"),range=$("#density"),hud=$("#hud"),notes=$("#scopeNotes"),ctrl=$("#scopeCtrl");
   const chips=[...document.querySelectorAll("#conds .cond")];
-  const ORDER=["saudavel","caspa","oleo","foliculite","rarefacao","areata"];
+  const ORDER=["saudavel","caspa","oleo","foliculite","areata"];
   const INFO={
     saudavel:{hud:"couro cabeludo saudável",n:[["Unidades com 2 a 3 fios","Cada folículo produz mais de um fio, e a densidade é uniforme em todo o couro cabeludo."],["Espessura regular","Os fios têm calibre parecido, sem mistura de grossos e finos."],["Pele limpa e clara","Sem descamação, vermelhidão ou excesso de oleosidade entre os fios."]]},
     caspa:{hud:"caspa · descamação",n:[["Escamas brancas soltas","Pequenas lâminas secas se desprendem da pele e ficam presas entre os fios."],["Acúmulo na saída do fio","As escamas se concentram ao redor do folículo e podem abafá-lo."],["Coceira e vermelhidão","Sinais de pele sensibilizada, comuns na dermatite seborreica."]]},
     oleo:{hud:"oleosidade excessiva",n:[["Brilho gorduroso","O excesso de sebo deixa a pele espelhada, com aspecto úmido."],["Fios agrupados","A oleosidade cola os fios em mechas logo na raiz."],["Escamas amareladas","Descamação gordurosa que adere à pele, diferente da caspa seca."]]},
     foliculite:{hud:"foliculite · inflamação",n:[["Pontos avermelhados","Pápulas inflamadas surgem exatamente na saída do folículo."],["Pústulas","Bolinhas com centro amarelado indicam inflamação ativa, às vezes com infecção."],["Fios quebrados","A inflamação fragiliza o fio, que se rompe perto da raiz. Quadros extensos pedem avaliação médica."]]},
-    rarefacao:{hud:"rarefação · miniaturização",n:[["Fios de espessuras diferentes","Quando fios grossos e finos se misturam, é sinal de miniaturização do folículo."],["Folículos com um só fio","Unidades que tinham dois ou três fios passam a ter apenas um."],["Couro cabeludo aparente","A distância entre os fios aumenta e a densidade cai no topo e na risca."]]},
     areata:{hud:"alopecia areata · falha",n:[["Área lisa, sem fios","Uma placa arredondada perde os fios de forma súbita, com a pele íntegra."],["Fios em ponto de exclamação","Fios curtos que afinam na base, típicos da fase ativa."],["Pontos amarelos e pretos","Orifícios vazios e fios quebrados rente à pele aparecem dentro da falha."]]}
   };
-  const SKIN={saudavel:["#E8C7AA","#C99E80"],caspa:["#EBC4AE","#CB9A84"],oleo:["#E2BE8C","#BD9164"],foliculite:["#EBBEA8","#C88E7A"],rarefacao:["#E8C7AA","#C99E80"],areata:["#EAC9AE","#C99E80"]};
+  const SKIN={saudavel:["#E8C7AA","#C99E80"],caspa:["#EBC4AE","#CB9A84"],oleo:["#E2BE8C","#BD9164"],foliculite:["#EBBEA8","#C88E7A"],areata:["#EAC9AE","#C99E80"]};
   const Z=2.6; let W,H,dpr,hi,hctx,units=[],flecks=[],lx=0,ly=0,tlx=0,tly=0,raf=0,touched=false,cond="saudavel",picked=false,pend=false;
   function seedUnits(){
     // deterministic pseudo-random
@@ -869,7 +867,6 @@ function updateTimeline(){
     const pust=[];
     for(const u of units){
       let c=u.count,thin=0;
-      if(cond==="rarefacao"){const lose=d*(.45+u.r1*1.1);if(lose>.55)c--;if(lose>.85)c--;if(lose>1.05)c=0;c=Math.max(0,c);thin=d*.9;}
       const q=cond==="areata"?((u.x-px)/prx)**2+((u.y-py)/pry)**2:9;
       // follicle opening
       h.fillStyle=`rgba(110,65,45,${c?.45:.25})`;h.beginPath();h.ellipse(u.x,u.y,1.5,1.1,u.ang,0,7);h.fill();
