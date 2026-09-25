@@ -449,9 +449,9 @@ footer a{color:var(--gold-2)}
         <canvas id="scope" aria-label="Ilustração interativa de couro cabeludo ampliado"></canvas>
         <div class="hud" id="hud">Ilustração · couro cabeludo saudável</div>
       </div>
-      <div class="scope-ctrl off" id="scopeCtrl">
+      <div class="scope-ctrl" id="scopeCtrl">
         <span>Leve</span>
-        <input type="range" id="density" min="0" max="100" value="65" disabled aria-label="Intensidade da condição na ilustração">
+        <input type="range" id="density" min="0" max="100" value="0" aria-label="Intensidade da condição na ilustração">
         <span>Intenso</span>
       </div>
       <div class="scope-notes" id="scopeNotes">
@@ -830,7 +830,7 @@ function updateTimeline(){
     areata:{hud:"alopecia areata · falha",n:[["Área lisa, sem fios","Uma placa arredondada perde os fios de forma súbita, com a pele íntegra."],["Fios em ponto de exclamação","Fios curtos que afinam na base, típicos da fase ativa."],["Pontos amarelos e pretos","Orifícios vazios e fios quebrados rente à pele aparecem dentro da falha."]]}
   };
   const SKIN={saudavel:["#E8C7AA","#C99E80"],caspa:["#EBC4AE","#CB9A84"],oleo:["#E2BE8C","#BD9164"],foliculite:["#EBBEA8","#C88E7A"],areata:["#EAC9AE","#C99E80"]};
-  const Z=2.6; let W,H,dpr,hi,hctx,units=[],flecks=[],lx=0,ly=0,tlx=0,tly=0,raf=0,touched=false,cond="saudavel",picked=false,pend=false;
+  const Z=2.6; let W,H,dpr,hi,hctx,units=[],extra=[],vals={saudavel:0,caspa:65,oleo:65,foliculite:65,areata:65},flecks=[],lx=0,ly=0,tlx=0,tly=0,raf=0,touched=false,cond="saudavel",picked=false,pend=false;
   function seedUnits(){
     // deterministic pseudo-random
     let s=7;const rnd=()=>{s=(s*16807)%2147483647;return s/2147483647;};
@@ -840,6 +840,9 @@ function updateTimeline(){
       units.push({x,y,count:r<.15?1:r<.7?2:3,ang:-0.75+0.35*Math.sin(x/W*3.1+y/H*2.3)+(rnd()-.5)*.25,len:24+rnd()*26,bend:(rnd()-.5)*9,r1:rnd(),r2:rnd(),r3:rnd(),r4:rnd(),r5:rnd(),tone:rnd()});
     }
     flecks=[];for(let i=0,m=Math.round(W*H/260);i<m;i++)flecks.push({x:rnd()*W,y:rnd()*H,s:rnd(),r:rnd(),a:rnd()*6.28,k:5+Math.floor(rnd()*4)});
+    // extra follicles shown only as healthy density increases
+    extra=[];
+    for(let i=0;i<n;i++){const x=rnd()*W,y=rnd()*H,r=rnd();extra.push({x,y,count:r<.1?1:r<.6?2:3,ang:-0.75+0.35*Math.sin(x/W*3.1+y/H*2.3)+(rnd()-.5)*.25,len:24+rnd()*26,bend:(rnd()-.5)*9,r1:rnd(),r2:rnd(),r3:rnd(),r4:rnd(),r5:rnd(),tone:rnd(),ex:rnd()});}
   }
   function flake(h,x,y,r,rot,k,fill,edge){
     h.beginPath();
@@ -848,7 +851,7 @@ function updateTimeline(){
   }
   function blob(h,x,y,r,rgb,a){const g=h.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,`rgba(${rgb},${a})`);g.addColorStop(1,`rgba(${rgb},0)`);h.fillStyle=g;h.fillRect(x-r,y-r,r*2,r*2);}
   function renderHi(){
-    const d=cond==="saudavel"?0:range.value/100,h=hctx;
+    const lvl=range.value/100,d=cond==="saudavel"?0:lvl,dh=cond==="saudavel"?lvl:0,h=hctx;
     range.style.setProperty("--p",range.value+"%");
     hud.textContent="Ilustração · "+INFO[cond].hud;
     const S=Z*Math.min(dpr,1.5);
@@ -865,7 +868,7 @@ function updateTimeline(){
     const px=W*.56,py=H*.5,prx=W*(.13+.15*d),pry=H*(.3+.2*d);
     if(cond==="areata"){h.save();h.translate(px,py);h.scale(1,pry/prx);blob(h,0,0,prx*1.05,"246,222,200",.55);h.restore();}
     const pust=[];
-    for(const u of units){
+    for(const u of dh?units.concat(extra.filter(e=>e.ex<dh)):units){
       let c=u.count,thin=0;
       const q=cond==="areata"?((u.x-px)/prx)**2+((u.y-py)/pry)**2:9;
       // follicle opening
@@ -886,7 +889,7 @@ function updateTimeline(){
       for(let k=0;k<c;k++){
         const mini=thin>.18&&(u.r2+k*.23)%1<thin;
         const w=mini?.35+u.r3*.25:.95+u.r3*.4;
-        let L=(mini?.4:1)*u.len*(.9+k*.08)*edge;
+        let L=(mini?.4:1)*u.len*(.9+k*.08)*edge*(1+.2*dh);
         if(infl&&k===0&&u.r5<.6)L*=.2; // broken hair
         const a=u.ang+(k-1)*.14;
         let ex=u.x+Math.cos(a+.12)*L,ey=u.y+Math.sin(a+.12)*L,cx=u.x+Math.cos(a)*L*.5+u.bend,cy=u.y+Math.sin(a)*L*.5-u.bend*.4;
@@ -919,9 +922,8 @@ function updateTimeline(){
   }
   function schedule(){if(pend)return;pend=true;requestAnimationFrame(()=>{pend=false;renderHi();kick();});}
   function setCond(c){
-    cond=c;chips.forEach(b=>b.setAttribute("aria-pressed",b.dataset.c===c));
-    ctrl.classList.toggle("off",c==="saudavel");range.disabled=c==="saudavel";
-    notes.classList.add("swap");
+    cond=c;range.value=vals[c];chips.forEach(b=>b.setAttribute("aria-pressed",b.dataset.c===c));
+        notes.classList.add("swap");
     setTimeout(()=>{notes.innerHTML=INFO[c].n.map(([b,t])=>`<div><b>${b}</b>${t}</div>`).join("");notes.classList.remove("swap");},220);
     if(W)schedule();
   }
@@ -963,7 +965,7 @@ function updateTimeline(){
   function move(e){const r=box.getBoundingClientRect();tlx=Math.max(0,Math.min(W,e.clientX-r.left));tly=Math.max(0,Math.min(H,e.clientY-r.top));touched=true;kick();}
   box.addEventListener("pointermove",move);
   box.addEventListener("pointerdown",e=>{move(e);box.setPointerCapture&&box.setPointerCapture(e.pointerId);});
-  range.addEventListener("input",()=>{picked=true;schedule();});
+  range.addEventListener("input",()=>{picked=true;vals[cond]=+range.value;schedule();});
   addEventListener("resize",()=>{clearTimeout(size._t);size._t=setTimeout(size,150);});
   // idle drift until user touches
   let t0=performance.now();
