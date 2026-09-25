@@ -218,15 +218,7 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
 
 /* BOOKING */
 .booking{background:radial-gradient(90% 70% at 20% 0%,rgba(196,162,103,.16),transparent 60%),radial-gradient(70% 60% at 100% 100%,rgba(167,115,106,.14),transparent 60%),var(--night-2)}
-.bk{display:grid;grid-template-columns:.8fr 1.2fr;gap:64px;align-items:start}
-.bk-side p{color:#BDBBA6;margin-top:18px;max-width:26em}
-.bk-facts{list-style:none;padding:0;margin:36px 0 0;display:flex;gap:34px}
-.bk-facts b{display:block;font-family:var(--serif);font-weight:400;font-size:2.6rem;line-height:1;color:var(--gold-2)}
-.bk-facts li{color:var(--mist);font-size:.9rem}
-.bk-wa{color:#BDBBA6;font-size:.92rem;margin-top:30px}
-.bk-wa a{display:inline-flex;align-items:center;gap:6px;color:var(--gold-2);text-decoration:underline;text-underline-offset:4px}
 .wa-ic{width:18px;height:18px;flex:none}
-@media (max-width:900px){.bk{grid-template-columns:1fr;gap:34px}}
 .card{position:relative;background:rgba(239,232,219,.04);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(227,205,156,.2);border-radius:28px;padding:36px;box-shadow:0 60px 120px -60px rgba(0,0,0,.9)}
 @media (max-width:520px){.card{padding:24px 18px;border-radius:22px}}
 .stepline{font-size:.86rem;color:var(--mist);margin-bottom:6px}
@@ -237,6 +229,21 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
 .field{margin-bottom:20px}
 .field > label,.field > .lbl{display:block;font-weight:400;font-size:.95rem;margin-bottom:9px;color:#E6DFCF}
 .req{color:var(--gold)}
+.booking{position:fixed;inset:0;z-index:80;overflow-y:auto;overscroll-behavior:contain;padding:0 0 60px}
+.booking[hidden]{display:none}
+.booking .bk{max-width:720px;margin:0 auto}
+.booking:not([hidden]) .card{animation:qmIn .55s var(--ease)}
+@keyframes qmIn{from{opacity:0;transform:translateY(18px)}}
+html.qm-open{overflow:hidden}
+.qm-bar{position:sticky;top:0;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 20px;padding-top:calc(12px + env(safe-area-inset-top,0px));background:rgba(18,22,15,.82);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(227,205,156,.12);margin-bottom:28px}
+.qm-brand{display:flex;align-items:center;gap:10px;color:var(--linen);font-family:var(--serif);font-size:1.2rem}
+.qm-brand svg{width:40px;height:26px;color:var(--gold)}
+.qm-actions{display:flex;align-items:center;gap:14px}
+.qm-wa{display:inline-flex;align-items:center;gap:6px;color:var(--gold-2);font-size:.9rem;text-decoration:none}
+.qm-wa:hover{text-decoration:underline;text-underline-offset:4px}
+.qm-x{width:42px;height:42px;border-radius:50%;border:1px solid rgba(227,205,156,.3);background:transparent;color:var(--linen);font-size:1.5rem;line-height:1;cursor:pointer}
+.qm-x:hover{border-color:var(--gold)}
+@media (max-width:520px){.qm-wa span,.qm-brand span{display:none}.qm-bar{margin-bottom:16px}.booking .wrap{padding:0 12px}}
 .booking input[type=text],.booking input[type=tel],.booking input[type=number],.booking textarea{
   width:100%;padding:14px 16px;border:1px solid rgba(227,205,156,.22);border-radius:14px;background:rgba(18,22,15,.5);color:var(--linen);font-size:16px;transition:border-color .3s,box-shadow .3s}
 .booking textarea{min-height:96px;resize:vertical}
@@ -641,18 +648,13 @@ footer a{color:var(--gold-2)}
     </div>
   </section>
 
-  <section class="sec booking" id="agendar" aria-labelledby="at">
+  <section class="booking" id="agendar" role="dialog" aria-modal="true" aria-label="Pré-avaliação capilar" hidden>
+    <div class="qm-bar">
+      <div class="qm-brand"><svg aria-hidden="true"><use href="#kc"/></svg><span>Pré-avaliação capilar</span></div>
+      <div class="qm-actions"><a class="qm-wa js-wa" href="https://wa.me/" target="_blank" rel="noopener"><svg class="wa-ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg><span>Prefiro o WhatsApp</span></a><button type="button" class="qm-x" id="qmClose" aria-label="Fechar">×</button></div>
+    </div>
     <div class="wrap bk">
-      <div class="bk-side">
-        <div class="eyebrow rv">Pré-atendimento</div>
-        <h2 class="h2" id="at"><span class="mask rv"><span>Agende sua</span></span><span class="mask rv d1"><span><i>avaliação.</i></span></span></h2>
-        <p class="rv d2">Responda algumas perguntas rápidas antes da consulta, quase todas com um toque. Assim eu chego preparada para entender o seu caso, e o seu tempo comigo rende mais.</p>
-        <p class="rv d2">No fim, você escolhe o dia e o horário direto na agenda e recebe a confirmação pelo WhatsApp.</p>
-        <ul class="bk-facts rv d3"><li><b>3 min</b>para responder</li><li><b>Na hora</b>você escolhe o horário</li></ul>
-        <p class="bk-wa rv d3">Prefere conversar antes? <a class="js-wa" href="https://wa.me/" target="_blank" rel="noopener"><svg class="wa-ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg>Agendar pelo WhatsApp</a></p>
-      </div>
-
-      <div class="card rv" id="formCard">
+      <div class="card" id="formCard">
         <form id="bookForm" novalidate>
           <div class="qhead" id="qHead" hidden>
             <ol class="rail3" id="rail3" aria-hidden="true"><li data-s="1"><span>Seu cabelo</span></li><li data-s="2"><span>Sua saúde</span></li><li data-s="3"><span>Agendamento</span></li></ol>
@@ -1485,6 +1487,15 @@ async function submit(){
   $("#doneBox h3").setAttribute("tabindex","-1");$("#doneBox h3").focus();}
 $("#againBtn").addEventListener("click",()=>{form.reset();slot={data:"",hora:""};calCache={};calM=null;$("#padraoOpts").dataset.sx="";form.hidden=false;const dn=$("#doneBox");dn.hidden=true;dn.classList.remove("show");moved=false;show(0);});
 show(0);
+
+/* ===== Quiz overlay ===== */
+const qm=$("#agendar");let qmBack=null;
+function openQuiz(){if(!qm.hidden)return;qmBack=document.activeElement;qm.hidden=false;document.documentElement.classList.add("qm-open");qm.scrollTop=0;const h=(form.hidden?$("#doneBox"):steps[cs]).querySelector("h3");h.setAttribute("tabindex","-1");h.focus({preventScroll:true});}
+function closeQuiz(){if(qm.hidden)return;qm.hidden=true;document.documentElement.classList.remove("qm-open");if(location.hash==="#agendar")history.replaceState("",document.title,location.pathname+location.search);if(qmBack&&qmBack.focus)qmBack.focus({preventScroll:true});}
+document.addEventListener("click",e=>{const a=e.target.closest('a[href="#agendar"]');if(!a)return;e.preventDefault();openQuiz();});
+$("#qmClose").addEventListener("click",closeQuiz);
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!qm.hidden&&$("#sheet").hidden)closeQuiz();});
+if(location.hash==="#agendar")openQuiz();
 
 /* ===== Routing ===== */
 let poll=0;
