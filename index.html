@@ -171,9 +171,11 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
 .proc{display:grid;grid-template-columns:.9fr 1.1fr;gap:70px}
 .proc .stick{position:sticky;top:120px;align-self:start}
 .proc .stick p{margin-top:22px;color:var(--sec-muted);max-width:26em}
-.price-card{margin-top:40px;display:inline-flex;align-items:center;gap:26px;padding:22px 28px;border-radius:22px;background:var(--olive);color:#F6F1E6}
-.price-card .amt{font-family:var(--serif);font-size:3.4rem;line-height:1}
-.price-card small{display:block;color:#C9C8B3;font-size:.86rem;line-height:1.35}
+.inclui{list-style:none;padding:0;margin:34px 0 0;display:grid;gap:0;max-width:26em}
+.inclui li{display:flex;align-items:center;gap:14px;padding:14px 0;border-top:1px solid var(--sec-line,rgba(0,0,0,.1));font-size:1rem}
+.inclui li:last-child{border-bottom:1px solid var(--sec-line,rgba(0,0,0,.1))}
+.inclui li::before{content:"";width:18px;height:18px;flex:none;border-radius:50%;background:var(--gold) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18'%3E%3Cpath d='M5 9.4l2.6 2.6L13 6.6' fill='none' stroke='%2312160F' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/100% no-repeat}
+.proc-cta{margin-top:30px}
 .timeline{position:relative;padding-left:48px}
 .timeline .rail{position:absolute;left:12px;top:8px;bottom:8px;width:1px;background:var(--sec-line)}
 .timeline .rail i{position:absolute;inset:0;background:linear-gradient(var(--gold),var(--rose));transform-origin:top;transform:scaleY(var(--prog,0))}
@@ -588,7 +590,12 @@ footer a{color:var(--gold-2)}
         <div class="eyebrow rv">A avaliação</div>
         <h2 class="h2" id="pt"><span class="mask rv"><span>Cada caso</span></span><span class="mask rv d1"><span>tem uma <i>causa.</i></span></span></h2>
         <p class="rv d2">Investigar é o primeiro passo para transformar. Em cerca de uma hora, você entende o que está acontecendo e o que fazer.</p>
-        <div class="price-card rv d3"><span class="amt">1h</span><small>de conversa e<br>tricoscopia, com plano<br>de cuidado na mão</small></div>
+        <ul class="inclui rv d3">
+          <li>Tricoscopia com imagem ampliada</li>
+          <li>Diagnóstico explicado com calma</li>
+          <li>Plano de cuidado para casa e em consultório</li>
+        </ul>
+        <a class="btn rv d3 proc-cta" href="#agendar">Começar minha avaliação</a>
       </div>
       <div class="timeline" id="timeline">
         <div class="rail"><i></i></div>
