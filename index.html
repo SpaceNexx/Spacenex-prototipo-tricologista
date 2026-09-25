@@ -223,10 +223,6 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
 @media (max-width:900px){.bk{grid-template-columns:1fr;gap:34px}}
 .card{position:relative;background:rgba(239,232,219,.04);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(227,205,156,.2);border-radius:28px;padding:36px;box-shadow:0 60px 120px -60px rgba(0,0,0,.9)}
 @media (max-width:520px){.card{padding:24px 18px;border-radius:22px}}
-.progress{display:flex;gap:6px;margin-bottom:26px}
-.progress i{flex:1;height:2px;background:rgba(227,205,156,.16);position:relative;overflow:hidden}
-.progress i::after{content:"";position:absolute;inset:0;background:var(--gold-2);transform:scaleX(0);transform-origin:left;transition:transform .7s var(--ease)}
-.progress i.on::after{transform:scaleX(1)}
 .stepline{font-size:.86rem;color:var(--mist);margin-bottom:6px}
 .fs{border:0;margin:0;padding:0;animation:stepIn .6s var(--ease)}
 .fs[hidden]{display:none}
@@ -249,6 +245,60 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
 .chip:hover span{border-color:rgba(227,205,156,.6)}
 .chip input:checked + span{background:var(--gold);border-color:var(--gold);color:var(--night);transform:scale(1.03)}
 .chip input:focus-visible + span{outline:2px solid var(--gold-2);outline-offset:2px}
+.qhead{margin-bottom:24px}
+.rail3{list-style:none;display:flex;gap:10px;margin:0 0 14px;padding:0;font-size:.82rem;color:var(--mist)}
+.rail3 li{flex:1;display:flex;align-items:center;gap:8px;min-width:0}
+.rail3 li::before{content:attr(data-s);display:grid;place-items:center;width:22px;height:22px;border-radius:50%;border:1px solid rgba(227,205,156,.3);font-size:.72rem;flex:none;transition:all .3s}
+.rail3 li.on{color:var(--linen)}
+.rail3 li.on::before{background:var(--gold);border-color:var(--gold);color:var(--night)}
+.rail3 li.done::before{content:"✓";background:rgba(196,162,103,.18);border-color:var(--gold);color:var(--gold-2)}
+@media (max-width:440px){.rail3 li:not(.on) span{display:none}.rail3 li:not(.on){flex:none}}
+.qbar{height:2px;background:rgba(227,205,156,.16);border-radius:2px;overflow:hidden;margin-bottom:10px}
+.qbar i{display:block;height:100%;width:0;background:var(--gold-2);transition:width .6s var(--ease)}
+.qk{font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:0 0 8px}
+.fs.q h3{font-size:clamp(1.7rem,3.2vw,2.2rem);line-height:1.12;margin-bottom:12px}
+.qsub{color:#BDBBA6;margin:0 0 22px;font-size:.95rem}
+.fs.q h3 + .opts{margin-top:22px}
+.opts{display:grid;gap:10px}
+.opt{position:relative;display:block}
+.opt input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer;z-index:1;width:100%;height:100%}
+.opt>span{display:flex;align-items:center;gap:14px;height:100%;box-sizing:border-box;padding:16px 18px;border:1px solid rgba(227,205,156,.22);border-radius:16px;background:rgba(239,232,219,.03);color:#E6DFCF;font-size:1rem;transition:border-color .25s,background .25s}
+.opt>span::before{content:"";width:20px;height:20px;box-sizing:border-box;border-radius:50%;border:1.5px solid rgba(227,205,156,.5);flex:none;transition:all .25s}
+.opt input[type=checkbox]+span::before{border-radius:6px}
+.opt:hover>span{border-color:rgba(227,205,156,.6)}
+.opt input:checked+span{border-color:var(--gold);background:rgba(196,162,103,.13)}
+.opt input[type=radio]:checked+span::before{border:6px solid var(--gold)}
+.opt input[type=checkbox]:checked+span::before{background:var(--gold);border-color:var(--gold);box-shadow:inset 0 0 0 4px #1E2219}
+.opt input:focus-visible+span{outline:2px solid var(--gold-2);outline-offset:2px}
+.opt em{font-style:normal}
+.opt small{display:block;color:var(--mist);font-size:.85rem;margin-top:3px;line-height:1.4}
+.opts.two{grid-template-columns:1fr 1fr}
+.opts.pics{grid-template-columns:repeat(3,1fr)}
+.opt.pic>span{position:relative;flex-direction:column;gap:6px;padding:16px 10px 14px;text-align:center;font-size:.9rem;line-height:1.25}
+.opt.pic>span::before{position:absolute;top:10px;left:10px;width:16px;height:16px}
+.opt.pic input[type=radio]:checked+span::before{border-width:5px}
+.opt.pic svg{width:100%;max-width:118px;height:auto;display:block}
+@media (max-width:560px){.opts.pics{grid-template-columns:repeat(2,1fr)}.opts.two{grid-template-columns:1fr}}
+.why{margin-top:18px;padding:14px 16px;border-radius:14px;background:rgba(239,232,219,.05);font-size:.88rem;color:#BDBBA6;line-height:1.5}
+.why b{display:block;color:var(--linen);font-weight:500;margin-bottom:3px}
+.intro-list{list-style:none;padding:0;margin:26px 0 0;display:grid;gap:2px;position:relative}
+.intro-list li{display:flex;align-items:center;gap:14px;padding:16px 18px;border-radius:16px;border:1px solid transparent}
+.intro-list li:first-child{background:rgba(239,232,219,.06);border-color:rgba(227,205,156,.22)}
+.intro-list i{font-style:normal;display:grid;place-items:center;width:26px;height:26px;border-radius:50%;border:1px solid rgba(227,205,156,.35);font-size:.8rem;color:var(--gold-2);flex:none}
+.intro-list li:first-child i{background:var(--gold);color:var(--night);border-color:var(--gold)}
+.intro-list b{font-weight:500;color:var(--linen);flex:1}
+.intro-list span{font-size:.8rem;color:var(--mist)}
+.insight{border:1px solid rgba(196,162,103,.35);border-radius:16px;padding:18px 20px;margin-bottom:14px;background:rgba(196,162,103,.06)}
+.insight h4{font-family:var(--serif);font-weight:400;font-size:1.35rem;margin:0 0 10px;color:var(--linen)}
+.insight ul{margin:0;padding-left:18px;color:#D8D2BE;font-size:.93rem;line-height:1.5}
+.insight li{margin:6px 0}
+.insight b{color:var(--linen);font-weight:500}
+.insight .fine{margin:12px 0 0;font-size:.8rem;color:var(--mist)}
+.sumwrap{margin-bottom:18px}
+.sumwrap{border:0;padding:0}
+.sumwrap summary{display:inline-flex;font-family:inherit;font-size:.9rem;color:var(--gold-2);margin-bottom:10px;text-decoration:underline;text-underline-offset:4px}
+.sumwrap summary::after{content:none}
+.form-nav [hidden]{display:none}
 .err{color:#E4A597;font-size:.88rem;margin-top:6px}
 .form-nav{display:flex;justify-content:space-between;gap:12px;margin-top:28px;padding-top:22px;border-top:1px solid rgba(227,205,156,.15)}
 .summary{display:grid;border:1px solid rgba(227,205,156,.18);border-radius:16px;overflow:hidden;margin:0 0 18px}
@@ -519,90 +569,168 @@ footer a{color:var(--gold-2)}
       <div class="bk-side">
         <div class="eyebrow rv">Pré-atendimento</div>
         <h2 class="h2" id="at"><span class="mask rv"><span>Agende sua</span></span><span class="mask rv d1"><span><i>avaliação.</i></span></span></h2>
-        <p class="rv d2">Responda algumas perguntas antes da consulta. Assim eu chego preparada para entender o seu caso, e o seu tempo comigo rende mais.</p>
+        <p class="rv d2">Responda algumas perguntas rápidas antes da consulta, quase todas com um toque. Assim eu chego preparada para entender o seu caso, e o seu tempo comigo rende mais.</p>
         <p class="rv d2">Depois de enviar, confirmamos dia e horário pelo WhatsApp.</p>
         <div class="amt rv d3 js-price">R$ 100</div><small class="rv d3">Avaliação capilar completa</small>
       </div>
 
       <div class="card rv" id="formCard">
         <form id="bookForm" novalidate>
-          <div class="progress" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
-          <p class="stepline" id="stepLine" aria-live="polite">Etapa 1 de 5</p>
+          <div class="qhead" id="qHead" hidden>
+            <ol class="rail3" id="rail3" aria-hidden="true"><li data-s="1"><span>Seu cabelo</span></li><li data-s="2"><span>Sua saúde</span></li><li data-s="3"><span>Agendamento</span></li></ol>
+            <div class="qbar" aria-hidden="true"><i id="qBar"></i></div>
+            <p class="stepline" id="stepLine" aria-live="polite"></p>
+          </div>
 
-          <fieldset class="fs" data-step="0">
-            <h3>Seus dados</h3>
+          <fieldset class="fs q" data-stage="0">
+            <h3>Vamos preparar a sua avaliação</h3>
+            <p class="qsub">São perguntas rápidas, quase todas com um toque. Assim eu chego à consulta já entendendo o seu caso.</p>
+            <ol class="intro-list">
+              <li><i>1</i><b>Como está seu cabelo</b><span>1 min</span></li>
+              <li><i>2</i><b>Falando da sua saúde</b><span>1 min</span></li>
+              <li><i>3</i><b>Seus dados e horário</b><span>1 min</span></li>
+            </ol>
+          </fieldset>
+
+          <fieldset class="fs q" data-stage="1" data-auto hidden>
+            <p class="qk">Seu cabelo</p>
+            <h3>Para quem é a avaliação?</h3>
+            <p class="qsub">Usamos isso para mostrar as imagens certas nas próximas perguntas.</p>
+            <div class="opts">
+              <label class="opt"><input type="radio" name="sexo" value="Feminino"><span>Mulher</span></label>
+              <label class="opt"><input type="radio" name="sexo" value="Masculino"><span>Homem</span></label>
+              <label class="opt"><input type="radio" name="sexo" value="Prefiro não informar"><span>Prefiro não informar</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="fs q" data-stage="1" data-v="queixas" hidden>
+            <p class="qk">Seu cabelo</p>
+            <h3>O que mais te incomoda hoje?</h3>
+            <p class="qsub">Marque todas as opções que fazem sentido.</p>
+            <div class="opts two">
+              <label class="opt"><input type="checkbox" name="queixas" value="Queda excessiva"><span>Queda excessiva</span></label>
+              <label class="opt"><input type="checkbox" name="queixas" value="Entradas / calvície"><span>Entradas ou calvície</span></label>
+              <label class="opt"><input type="checkbox" name="queixas" value="Risca mais larga"><span>Risca mais larga</span></label>
+              <label class="opt"><input type="checkbox" name="queixas" value="Fios finos / sem volume"><span>Fios finos, sem volume</span></label>
+              <label class="opt"><input type="checkbox" name="queixas" value="Caspa / descamação"><span>Caspa ou descamação</span></label>
+              <label class="opt"><input type="checkbox" name="queixas" value="Oleosidade"><span>Oleosidade</span></label>
+              <label class="opt"><input type="checkbox" name="queixas" value="Coceira / sensibilidade"><span>Coceira ou sensibilidade</span></label>
+              <label class="opt"><input type="checkbox" name="queixas" value="Quebra / fios danificados"><span>Quebra, fios danificados</span></label>
+            </div>
+            <div class="err" id="e-queixas"></div>
+          </fieldset>
+
+          <fieldset class="fs q" data-stage="1" data-auto data-v="padrao" hidden>
+            <p class="qk">Seu cabelo</p>
+            <h3>Qual imagem mais parece com o seu cabelo hoje?</h3>
+            <p class="qsub" id="padraoSub"></p>
+            <div class="opts pics" id="padraoOpts"></div>
+          </fieldset>
+
+          <fieldset class="fs q" data-stage="1" data-auto hidden>
+            <p class="qk">Seu cabelo</p>
+            <h3>Como a queda tem acontecido?</h3>
+            <div class="opts">
+              <label class="opt"><input type="radio" name="evolucao" value="Aos poucos, piorando com o tempo"><span><em>Aos poucos<small>Venho notando que piora com o tempo.</small></em></span></label>
+              <label class="opt"><input type="radio" name="evolucao" value="De repente, em poucas semanas"><span><em>De repente<small>Aconteceu em poucas semanas. Pode ter relação com estresse, doença, pós-parto ou medicamento.</small></em></span></label>
+              <label class="opt"><input type="radio" name="evolucao" value="Não noto queda"><span><em>Não noto queda<small>Meu incômodo é outro.</small></em></span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="fs q" data-stage="1" data-auto hidden>
+            <p class="qk">Seu cabelo</p>
+            <h3>Há quanto tempo você percebeu?</h3>
+            <div class="opts">
+              <label class="opt"><input type="radio" name="tempo" value="Menos de 3 meses"><span>Menos de 3 meses</span></label>
+              <label class="opt"><input type="radio" name="tempo" value="3 a 12 meses"><span>De 3 a 12 meses</span></label>
+              <label class="opt"><input type="radio" name="tempo" value="Mais de 1 ano"><span>Mais de 1 ano</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="fs q" data-stage="1" data-auto hidden>
+            <p class="qk">Seu cabelo</p>
+            <h3>Como é o seu couro cabeludo no dia a dia?</h3>
+            <div class="opts">
+              <label class="opt"><input type="radio" name="tipo" value="Oleoso"><span><em>Oleoso<small>A raiz fica com aspecto sujo em um dia.</small></em></span></label>
+              <label class="opt"><input type="radio" name="tipo" value="Seco"><span><em>Seco<small>Repuxa, coça ou solta pó fininho.</small></em></span></label>
+              <label class="opt"><input type="radio" name="tipo" value="Misto"><span><em>Misto<small>Raiz oleosa e comprimento seco.</small></em></span></label>
+              <label class="opt"><input type="radio" name="tipo" value="Não sei"><span>Não sei</span></label>
+            </div>
+            <div class="why"><b>Por que pergunto?</b>Oleosidade e ressecamento mudam os ativos e a frequência de lavagem que vou indicar.</div>
+          </fieldset>
+
+          <fieldset class="fs q" data-stage="2" data-auto hidden>
+            <p class="qk">Sua saúde</p>
+            <h3>Existe histórico de calvície ou queda na sua família?</h3>
+            <div class="opts">
+              <label class="opt"><input type="radio" name="familia" value="Sim"><span>Sim</span></label>
+              <label class="opt"><input type="radio" name="familia" value="Não"><span>Não</span></label>
+              <label class="opt"><input type="radio" name="familia" value="Não sei"><span>Não sei</span></label>
+            </div>
+            <div class="why"><b>Por que pergunto?</b>A queda de origem hereditária é uma das causas mais comuns, em homens e mulheres. Saber disso ajuda a interpretar o que a tricoscopia mostrar.</div>
+          </fieldset>
+
+          <fieldset class="fs q" data-stage="2" hidden>
+            <p class="qk">Sua saúde</p>
+            <h3>Nos últimos meses, você passou por algo assim?</h3>
+            <p class="qsub">Marque todas as opções que aconteceram.</p>
+            <div class="opts two">
+              <label class="opt"><input type="checkbox" name="eventos" value="Estresse intenso"><span>Estresse intenso</span></label>
+              <label class="opt"><input type="checkbox" name="eventos" value="Gestação / pós-parto"><span>Gestação ou pós-parto</span></label>
+              <label class="opt"><input type="checkbox" name="eventos" value="Dieta restritiva / emagrecimento"><span>Dieta restritiva</span></label>
+              <label class="opt"><input type="checkbox" name="eventos" value="Alteração hormonal"><span>Alteração hormonal</span></label>
+              <label class="opt"><input type="checkbox" name="eventos" value="Doença, febre ou cirurgia"><span>Doença, febre ou cirurgia</span></label>
+              <label class="opt"><input type="checkbox" name="eventos" value="Nenhum" data-none><span>Nada disso</span></label>
+            </div>
+            <div class="why"><b>Por que pergunto?</b>Um evento marcante pode provocar uma queda intensa dois a três meses depois. Na maioria das vezes, ela é reversível.</div>
+          </fieldset>
+
+          <fieldset class="fs q" data-stage="2" hidden>
+            <p class="qk">Sua saúde</p>
+            <h3>Você faz alguma química no cabelo?</h3>
+            <div class="opts two">
+              <label class="opt"><input type="checkbox" name="quimica" value="Coloração"><span>Coloração</span></label>
+              <label class="opt"><input type="checkbox" name="quimica" value="Descoloração / mechas"><span>Descoloração ou mechas</span></label>
+              <label class="opt"><input type="checkbox" name="quimica" value="Progressiva / alisamento"><span>Progressiva ou alisamento</span></label>
+              <label class="opt"><input type="checkbox" name="quimica" value="Nenhuma" data-none><span>Nenhuma</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="fs q" data-stage="2" hidden>
+            <p class="qk">Sua saúde</p>
+            <h3>Algo mais sobre a sua saúde?</h3>
+            <p class="qsub">Tudo aqui é opcional.</p>
+            <div class="row2">
+              <div class="field"><label for="f-medic">Usa medicamento contínuo?</label><input type="text" id="f-medic" name="medicamentos" placeholder="Ex.: anticoncepcional, tireoide"></div>
+              <div class="field"><label for="f-trat">Já fez tratamento capilar?</label><input type="text" id="f-trat" name="tratamentos" placeholder="Ex.: minoxidil, vitaminas"></div>
+            </div>
+            <div class="field"><label for="f-descricao">Conte com suas palavras</label><textarea id="f-descricao" name="descricao" placeholder="Ex.: comecei a notar mais fios no banho depois do pós-parto…"></textarea></div>
+          </fieldset>
+
+          <fieldset class="fs q" data-stage="2" data-auto hidden>
+            <p class="qk">Sua saúde</p>
+            <h3>O que você busca no tratamento?</h3>
+            <div class="opts">
+              <label class="opt"><input type="radio" name="objetivo" value="Recuperar volume e densidade"><span>Recuperar volume e densidade</span></label>
+              <label class="opt"><input type="radio" name="objetivo" value="Frear a queda"><span>Frear a queda</span></label>
+              <label class="opt"><input type="radio" name="objetivo" value="Recuperar e frear a queda"><span>Recuperar o cabelo e frear a queda</span></label>
+              <label class="opt"><input type="radio" name="objetivo" value="Tratar caspa, oleosidade ou coceira"><span>Tratar caspa, oleosidade ou coceira</span></label>
+              <label class="opt"><input type="radio" name="objetivo" value="Cuidar e prevenir"><span>Cuidar e prevenir</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="fs q" data-stage="3" data-v="dados" hidden>
+            <p class="qk">Agendamento</p>
+            <h3>Como posso te chamar?</h3>
             <div class="field"><label for="f-nome">Nome completo <span class="req">*</span></label><input type="text" id="f-nome" name="nome" autocomplete="name"><div class="err" id="e-nome"></div></div>
             <div class="row2">
               <div class="field"><label for="f-whats">WhatsApp <span class="req">*</span></label><input type="tel" id="f-whats" name="whatsapp" autocomplete="tel" inputmode="tel" placeholder="(00) 00000-0000"><div class="err" id="e-whats"></div></div>
               <div class="field"><label for="f-idade">Idade</label><input type="number" id="f-idade" name="idade" min="1" max="110" inputmode="numeric"></div>
             </div>
-            <div class="field"><span class="lbl">Sexo</span>
-              <div class="chips">
-                <label class="chip"><input type="radio" name="sexo" value="Feminino"><span>Feminino</span></label>
-                <label class="chip"><input type="radio" name="sexo" value="Masculino"><span>Masculino</span></label>
-                <label class="chip"><input type="radio" name="sexo" value="Prefiro não informar"><span>Prefiro não informar</span></label>
-              </div>
-            </div>
           </fieldset>
 
-          <fieldset class="fs" data-step="1" hidden>
-            <h3>O que está acontecendo?</h3>
-            <div class="field"><span class="lbl">Principais queixas <span class="req">*</span></span>
-              <div class="chips">
-                <label class="chip"><input type="checkbox" name="queixas" value="Queda excessiva"><span>Queda excessiva</span></label>
-                <label class="chip"><input type="checkbox" name="queixas" value="Entradas / calvície"><span>Entradas / calvície</span></label>
-                <label class="chip"><input type="checkbox" name="queixas" value="Risca mais larga"><span>Risca mais larga</span></label>
-                <label class="chip"><input type="checkbox" name="queixas" value="Fios finos / sem volume"><span>Fios finos / sem volume</span></label>
-                <label class="chip"><input type="checkbox" name="queixas" value="Caspa / descamação"><span>Caspa / descamação</span></label>
-                <label class="chip"><input type="checkbox" name="queixas" value="Oleosidade"><span>Oleosidade</span></label>
-                <label class="chip"><input type="checkbox" name="queixas" value="Coceira / sensibilidade"><span>Coceira / sensibilidade</span></label>
-                <label class="chip"><input type="checkbox" name="queixas" value="Quebra / fios danificados"><span>Quebra / fios danificados</span></label>
-              </div>
-              <div class="err" id="e-queixas"></div>
-            </div>
-            <div class="field"><span class="lbl">Há quanto tempo você percebeu?</span>
-              <div class="chips">
-                <label class="chip"><input type="radio" name="tempo" value="Menos de 3 meses"><span>Menos de 3 meses</span></label>
-                <label class="chip"><input type="radio" name="tempo" value="3 a 12 meses"><span>3 a 12 meses</span></label>
-                <label class="chip"><input type="radio" name="tempo" value="Mais de 1 ano"><span>Mais de 1 ano</span></label>
-              </div>
-            </div>
-            <div class="field"><label for="f-descricao">Conte com suas palavras</label><textarea id="f-descricao" name="descricao" placeholder="Ex.: comecei a notar mais fios no banho depois do pós-parto…"></textarea></div>
-          </fieldset>
-
-          <fieldset class="fs" data-step="2" hidden>
-            <h3>Seu histórico</h3>
-            <div class="field"><span class="lbl">Casos de calvície ou queda na família?</span>
-              <div class="chips">
-                <label class="chip"><input type="radio" name="familia" value="Sim"><span>Sim</span></label>
-                <label class="chip"><input type="radio" name="familia" value="Não"><span>Não</span></label>
-                <label class="chip"><input type="radio" name="familia" value="Não sei"><span>Não sei</span></label>
-              </div>
-            </div>
-            <div class="field"><span class="lbl">Nos últimos meses, passou por algo assim?</span>
-              <div class="chips">
-                <label class="chip"><input type="checkbox" name="eventos" value="Estresse intenso"><span>Estresse intenso</span></label>
-                <label class="chip"><input type="checkbox" name="eventos" value="Gestação / pós-parto"><span>Gestação / pós-parto</span></label>
-                <label class="chip"><input type="checkbox" name="eventos" value="Dieta restritiva / emagrecimento"><span>Dieta restritiva</span></label>
-                <label class="chip"><input type="checkbox" name="eventos" value="Alteração hormonal"><span>Alteração hormonal</span></label>
-                <label class="chip"><input type="checkbox" name="eventos" value="Doença, febre ou cirurgia"><span>Doença, febre ou cirurgia</span></label>
-              </div>
-            </div>
-            <div class="field"><span class="lbl">Química no cabelo</span>
-              <div class="chips">
-                <label class="chip"><input type="checkbox" name="quimica" value="Coloração"><span>Coloração</span></label>
-                <label class="chip"><input type="checkbox" name="quimica" value="Descoloração / mechas"><span>Descoloração / mechas</span></label>
-                <label class="chip"><input type="checkbox" name="quimica" value="Progressiva / alisamento"><span>Progressiva / alisamento</span></label>
-                <label class="chip"><input type="checkbox" name="quimica" value="Nenhuma"><span>Nenhuma</span></label>
-              </div>
-            </div>
-            <div class="row2">
-              <div class="field"><label for="f-medic">Medicamento contínuo?</label><input type="text" id="f-medic" name="medicamentos" placeholder="Ex.: anticoncepcional, tireoide"></div>
-              <div class="field"><label for="f-trat">Já fez tratamento capilar?</label><input type="text" id="f-trat" name="tratamentos" placeholder="Ex.: minoxidil, vitaminas"></div>
-            </div>
-          </fieldset>
-
-          <fieldset class="fs" data-step="3" hidden>
+          <fieldset class="fs q" data-stage="3" data-v="dias" hidden>
+            <p class="qk">Agendamento</p>
             <h3>Quando prefere vir?</h3>
             <div class="field"><span class="lbl">Dias de preferência <span class="req">*</span></span>
               <div class="chips">
@@ -624,9 +752,11 @@ footer a{color:var(--gold-2)}
             <div class="field"><label for="f-obs">Algo mais que eu deva saber?</label><textarea id="f-obs" name="observacoes"></textarea></div>
           </fieldset>
 
-          <fieldset class="fs" data-step="4" hidden>
+          <fieldset class="fs q" data-stage="3" data-v="ok" hidden>
+            <p class="qk">Agendamento</p>
             <h3>Confira e envie</h3>
-            <dl class="summary" id="summary"></dl>
+            <div class="insight" id="insight"></div>
+            <details class="sumwrap"><summary>Ver todas as respostas</summary><dl class="summary" id="summary"></dl></details>
             <div class="totalbox"><span>Avaliação capilar</span><span class="amt js-price">R$ 100</span></div>
             <label class="check"><input type="checkbox" id="f-ok"><span>Concordo em compartilhar essas informações para o pré-atendimento. O horário é confirmado pelo WhatsApp.</span></label>
             <div class="err" id="e-ok"></div>
@@ -635,7 +765,7 @@ footer a{color:var(--gold-2)}
           <div class="form-nav">
             <button type="button" class="btn line" id="prevBtn" hidden>Voltar</button>
             <span></span>
-            <button type="button" class="btn" id="nextBtn">Continuar</button>
+            <button type="button" class="btn" id="nextBtn">Começar</button>
           </div>
         </form>
 
@@ -978,34 +1108,97 @@ function updateTimeline(){
   },{threshold:.5}).observe(box);
 })();
 
-/* ===== Booking form ===== */
+/* ===== Booking quiz ===== */
 function maskPhone(v){const d=onlyDigits(v).slice(0,11);if(d.length<=2)return d.length?"("+d:"";if(d.length<=6)return"("+d.slice(0,2)+") "+d.slice(2);if(d.length<=10)return"("+d.slice(0,2)+") "+d.slice(2,6)+"-"+d.slice(6);return"("+d.slice(0,2)+") "+d.slice(2,7)+"-"+d.slice(7);}
 $("#f-whats").addEventListener("input",e=>{e.target.value=maskPhone(e.target.value);});
-const form=$("#bookForm"),steps=$$(".fs",form),bars=$$(".progress i",form);let cs=0;
+const form=$("#bookForm"),steps=$$(".fs",form);let cs=0;
 const vals=n=>$$(`[name="${n}"]:checked`,form).map(i=>i.value);
 function val(n){const el=form.elements[n];if(!el)return"";if(el instanceof RadioNodeList)return el.value||"";return(el.value||"").trim();}
-function collect(){return{nome:val("nome"),whatsapp:val("whatsapp"),idade:val("idade"),sexo:val("sexo"),queixas:vals("queixas"),tempo:val("tempo"),descricao:val("descricao"),familia:val("familia"),eventos:vals("eventos"),quimica:vals("quimica"),medicamentos:val("medicamentos"),tratamentos:val("tratamentos"),dias:vals("dias"),turno:val("turno"),observacoes:val("observacoes")};}
+function collect(){return{nome:val("nome"),whatsapp:val("whatsapp"),idade:val("idade"),sexo:val("sexo"),queixas:vals("queixas"),padrao:val("padrao"),evolucao:val("evolucao"),tempo:val("tempo"),tipo:val("tipo"),familia:val("familia"),eventos:vals("eventos"),quimica:vals("quimica"),medicamentos:val("medicamentos"),tratamentos:val("tratamentos"),descricao:val("descricao"),objetivo:val("objetivo"),dias:vals("dias"),turno:val("turno"),observacoes:val("observacoes")};}
 function setErr(id,m){const e=$("#"+id);if(e)e.textContent=m||"";}
-function validate(i){const d=collect();let ok=true;
-  if(i===0){setErr("e-nome","");setErr("e-whats","");if(d.nome.length<3){setErr("e-nome","Escreva seu nome completo.");ok=false;}if(onlyDigits(d.whatsapp).length<10){setErr("e-whats","Informe o WhatsApp com DDD.");ok=false;}}
-  if(i===1){setErr("e-queixas",d.queixas.length?"":"Escolha pelo menos uma queixa.");ok=!!d.queixas.length;}
-  if(i===3){setErr("e-dias",d.dias.length?"":"Escolha pelo menos um dia.");ok=!!d.dias.length;}
-  if(i===4){const c=$("#f-ok").checked;setErr("e-ok",c?"":"Marque a caixa para enviar.");ok=c;}
+function validate(i){const d=collect(),v=steps[i].dataset.v;let ok=true;
+  if(v==="queixas"){setErr("e-queixas",d.queixas.length?"":"Escolha pelo menos uma opção.");ok=!!d.queixas.length;}
+  if(v==="dados"){setErr("e-nome","");setErr("e-whats","");if(d.nome.length<3){setErr("e-nome","Escreva seu nome completo.");ok=false;}if(onlyDigits(d.whatsapp).length<10){setErr("e-whats","Informe o WhatsApp com DDD.");ok=false;}}
+  if(v==="dias"){setErr("e-dias",d.dias.length?"":"Escolha pelo menos um dia.");ok=!!d.dias.length;}
+  if(v==="ok"){const c=$("#f-ok").checked;setErr("e-ok",c?"":"Marque a caixa para enviar.");ok=c;}
   return ok;}
-const LABELS=[["nome","Nome"],["whatsapp","WhatsApp"],["idade","Idade"],["sexo","Sexo"],["queixas","Queixas"],["tempo","Há quanto tempo"],["descricao","Relato"],["familia","Casos na família"],["eventos","Últimos meses"],["quimica","Química"],["medicamentos","Medicamentos"],["tratamentos","Tratamentos anteriores"],["dias","Dias"],["turno","Turno"],["observacoes","Observações"]];
+const LABELS=[["nome","Nome"],["whatsapp","WhatsApp"],["idade","Idade"],["sexo","Sexo"],["queixas","Queixas"],["padrao","Imagem escolhida"],["evolucao","Como a queda evoluiu"],["tempo","Há quanto tempo"],["tipo","Couro cabeludo"],["familia","Casos na família"],["eventos","Últimos meses"],["quimica","Química"],["medicamentos","Medicamentos"],["tratamentos","Tratamentos anteriores"],["descricao","Relato"],["objetivo","Objetivo"],["dias","Dias"],["turno","Turno"],["observacoes","Observações"]];
 const fmt=v=>Array.isArray(v)?v.join(", "):v;
 function renderSummary(){const d=collect();$("#summary").innerHTML=LABELS.filter(([k])=>fmt(d[k])).map(([k,l])=>`<div><dt>${esc(l)}</dt><dd>${esc(fmt(d[k]))}</dd></div>`).join("");}
-let moved=false;
-function show(i){cs=i;steps.forEach((s,x)=>s.hidden=x!==i);bars.forEach((b,x)=>b.classList.toggle("on",x<=i));
-  $("#stepLine").textContent=`Etapa ${i+1} de ${steps.length}`;$("#prevBtn").hidden=i===0;
-  $("#nextBtn").textContent=i===steps.length-1?"Enviar pedido":"Continuar";
-  if(i===steps.length-1)renderSummary();
-  if(moved){const h=steps[i].querySelector("h3");h.setAttribute("tabindex","-1");h.focus({preventScroll:true});$("#formCard").scrollIntoView({block:"start",behavior:reduced?"auto":"smooth"});}
+function renderInsight(){
+  const d=collect(),q=d.queixas.join(" "),p=d.padrao,items=[];
+  if(/Risca|Topo|Rarefação|Linha frontal|Entradas|Calvície/.test(p)||(d.familia==="Sim"&&/Queda|Entradas|Risca|finos/.test(q)))items.push(["Afinamento progressivo dos fios","sinais de miniaturização do folículo, comuns quando há um padrão hereditário."]);
+  if(/repente/.test(d.evolucao)||d.eventos.some(e=>e!=="Nenhum"))items.push(["Queda por gatilho","estresse, pós-parto, dieta ou doença podem provocar uma queda intensa e, na maioria das vezes, reversível."]);
+  if(/Falhas/.test(p))items.push(["Falhas localizadas","áreas sem fios pedem um olhar cuidadoso e, quando necessário, encaminhamento médico."]);
+  if(/Oleoso|Misto|Seco/.test(d.tipo)||/Caspa|Oleosidade|Coceira/.test(q))items.push(["Equilíbrio do couro cabeludo","oleosidade, descamação e sensibilidade interferem no crescimento saudável do fio."]);
+  if(d.quimica.some(x=>/Descolora|Progressiva/.test(x))||/Quebra/.test(q))items.push(["Saúde da fibra","quebra e danos causados por química e calor."]);
+  if(!items.length)items.push(["Saúde geral do couro cabeludo","uma análise completa dos fios e folículos para cuidar e prevenir."]);
+  $("#insight").innerHTML=`<h4>Na sua avaliação, vou olhar com atenção para:</h4><ul>${items.map(([b,t])=>`<li><b>${esc(b)}:</b> ${esc(t)}</li>`).join("")}</ul><p class="fine">Isto não é um diagnóstico. Ele só sai depois da nossa conversa e da tricoscopia.</p>`;}
+
+/* hair-pattern illustrations */
+let svgN=0;
+const SK="#33352A",HR="#C4A267",LA='stroke="#E6DFCF" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"';
+const inE=(cx,cy,rx,ry)=>(x,y)=>((x-cx)/rx)**2+((y-cy)/ry)**2<1;
+function dotsIn(test,x0,y0,x1,y1,p){let s="",k=0;for(let y=y0;y<=y1;y+=4)for(let x=x0;x<=x1;x+=4){k++;const jx=x+((k*37)%10)/5-1,jy=y+((k*53)%10)/5-1;if(test(jx,jy)&&((k*7919)%100)/100<p)s+=`<circle cx="${jx.toFixed(1)}" cy="${jy.toFixed(1)}" r=".95"/>`;}return s;}
+function headM(t){
+  const id="hm"+(++svgN),full="M0 0H120V62H92C91 50 87 42 80 40Q60 46 40 40C33 42 29 50 28 62H0Z",ent="M0 0H120V62H92C91 52 88 45 83 43L79 30Q60 38 41 30L37 43C32 45 29 52 28 62H0Z";
+  let hair=full,holes="",dots="";
+  if(t==="ment")hair=ent;
+  if(t==="mcoroa"){hair=ent;holes='<ellipse cx="60" cy="21" rx="13" ry="6"/>';dots=dotsIn(inE(60,21,13,6),46,14,74,28,.4);}
+  if(t==="mmod"){hair=ent;holes='<ellipse cx="60" cy="27" rx="22" ry="15"/>';dots=dotsIn(inE(60,27,22,15),38,12,82,42,.12);}
+  if(t==="mext"){hair=ent;holes='<ellipse cx="60" cy="33" rx="29" ry="22"/>';}
+  if(t==="mirr")holes='<circle cx="46" cy="29" r="6"/><circle cx="71" cy="24" r="5"/><circle cx="84" cy="46" r="4"/>';
+  return`<svg viewBox="16 12 88 100" aria-hidden="true"><defs><clipPath id="${id}c"><ellipse cx="60" cy="52" rx="33" ry="36"/></clipPath><mask id="${id}m"><rect width="120" height="116" fill="#fff"/><g fill="#000">${holes}</g></mask></defs>
+    <path d="M48 96v14M72 96v14" fill="none" ${LA}/>
+    <path d="M31 57c-6-3-8 3-6 9s5 8 7 6M89 57c6-3 8 3 6 9s-5 8-7 6" fill="${SK}" ${LA}/>
+    <path d="M31 56C31 30 44 20 60 20S89 30 89 56C89 84 76 100 60 100S31 84 31 56Z" fill="${SK}" ${LA}/>
+    <g clip-path="url(#${id}c)"><path d="${hair}" fill="${HR}" mask="url(#${id}m)"/><g fill="${HR}" opacity=".85">${dots}</g></g>
+    <path d="M44 55q5-3 10 0M66 55q5-3 10 0M46 62h6M68 62h6M60 62v11q-1 2-4 2M53 84q7 4 14 0" fill="none" ${LA}/></svg>`;}
+function headF(t){
+  const id="hf"+(++svgN);let holes="",dots="";
+  if(t==="frisca"){holes='<path d="M60 28C65 40 65 58 60 82C55 58 55 40 60 28Z"/>';dots=dotsIn((x,y)=>y>30&&y<80&&Math.abs(x-60)<4.4*Math.sin(Math.PI*(y-28)/54),52,28,68,82,.35);}
+  if(t==="ftopo"){holes='<ellipse cx="60" cy="52" rx="13" ry="25"/>';dots=dotsIn(inE(60,52,13,25),46,26,74,78,.32);}
+  if(t==="favanc"){holes='<ellipse cx="60" cy="56" rx="23" ry="33"/>';dots=dotsIn(inE(60,56,23,33),36,22,84,90,.2);}
+  if(t==="ffrontal"){holes='<ellipse cx="60" cy="27" rx="25" ry="10"/><circle cx="37" cy="36" r="6"/><circle cx="83" cy="36" r="6"/>';dots=dotsIn(inE(60,27,25,10),34,16,86,38,.15);}
+  if(t==="fareata")holes='<circle cx="45" cy="52" r="8.5"/><circle cx="75" cy="73" r="6.5"/>';
+  let strands="";for(let y=32;y<=96;y+=8)strands+=`M60 ${y}Q46 ${y+3} 32 ${y+13}M60 ${y}Q74 ${y+3} 88 ${y+13}`;
+  return`<svg viewBox="14 10 92 98" aria-hidden="true"><defs><clipPath id="${id}c"><ellipse cx="60" cy="65" rx="32.5" ry="38"/></clipPath><mask id="${id}m"><rect width="120" height="116" fill="#fff"/><g fill="#000">${holes}</g><path d="M60 28V96" stroke="#000" stroke-width="1.6"/></mask></defs>
+    <path d="M27 54q-7 0-7 8t7 8M93 54q7 0 7 8t-7 8M54 23q6-11 12 0" fill="${SK}" ${LA}/>
+    <ellipse cx="60" cy="62" rx="34" ry="42" fill="${SK}" ${LA}/>
+    <g clip-path="url(#${id}c)"><g mask="url(#${id}m)"><rect width="120" height="116" fill="${HR}"/><path d="${strands}" fill="none" stroke="rgba(18,22,15,.32)" stroke-width=".9"/></g><g fill="${HR}" opacity=".85">${dots}</g></g></svg>`;}
+const PADRAO={
+  F:[["fnormal","Sem falhas aparentes"],["frisca","Risca mais larga"],["ftopo","Topo mais ralo"],["favanc","Rarefação avançada"],["ffrontal","Linha frontal recuando"],["fareata","Falhas redondas"]],
+  M:[["msem","Sem falhas aparentes"],["ment","Entradas"],["mcoroa","Entradas e coroa"],["mmod","Calvície moderada"],["mext","Calvície avançada"],["mirr","Falhas irregulares"]]};
+function renderPadrao(){
+  const sx=val("sexo")==="Masculino"?"M":"F",box=$("#padraoOpts");if(box.dataset.sx===sx)return;
+  const cur=val("padrao");box.dataset.sx=sx;
+  box.innerHTML=PADRAO[sx].map(([k,l])=>`<label class="opt pic"><input type="radio" name="padrao" value="${l}"${l===cur?" checked":""}><span>${sx==="M"?headM(k):headF(k)}${l}</span></label>`).join("");
+  $("#padraoSub").textContent=sx==="M"?"Escolha a que chega mais perto. Não precisa ser exata.":"Vista de cima da cabeça, com a testa para o alto. Escolha a que chega mais perto.";}
+
+let moved=false,autoT=0;
+function show(i){
+  cs=i;const st=steps[i],n=steps.length-1,intro=i===0,stage=+st.dataset.stage;
+  clearTimeout(autoT);steps.forEach((s,x)=>s.hidden=x!==i);
+  $("#qHead").hidden=intro;
+  $$("#rail3 li").forEach(li=>{const s=+li.dataset.s;li.classList.toggle("on",s===stage);li.classList.toggle("done",s<stage);});
+  $("#qBar").style.width=(i/n*100)+"%";
+  $("#stepLine").textContent=intro?"":`Pergunta ${i} de ${n}`;
+  $("#prevBtn").hidden=intro;
+  $("#nextBtn").textContent=intro?"Começar":i===n?"Enviar pedido":"Continuar";
+  if(st.dataset.v==="padrao")renderPadrao();
+  if(i===n){renderSummary();renderInsight();}
+  if(moved){const h=st.querySelector("h3");h.setAttribute("tabindex","-1");h.focus({preventScroll:true});const r=$("#formCard").getBoundingClientRect();if(r.top<0||r.top>innerHeight*.6)$("#formCard").scrollIntoView({block:"start",behavior:reduced?"auto":"smooth"});}
   moved=true;}
+async function next(){if(!validate(cs))return;if(cs<steps.length-1)return show(cs+1);await submit();}
 $("#prevBtn").addEventListener("click",()=>show(Math.max(0,cs-1)));
-$("#nextBtn").addEventListener("click",async()=>{if(!validate(cs))return;if(cs<steps.length-1)return show(cs+1);await submit();});
+$("#nextBtn").addEventListener("click",next);
 form.addEventListener("submit",e=>e.preventDefault());
-function waMessage(d){return[`Olá, Keila! Quero agendar minha avaliação capilar (${brl(Number(config.valor)||100)}).`,``,`Nome: ${d.nome}`,d.idade?`Idade: ${d.idade}`:"",`Queixas: ${d.queixas.join(", ")}`,d.tempo?`Há quanto tempo: ${d.tempo}`:"",d.familia?`Casos na família: ${d.familia}`:"",d.eventos.length?`Últimos meses: ${d.eventos.join(", ")}`:"",d.quimica.length?`Química: ${d.quimica.join(", ")}`:"",d.medicamentos?`Medicamentos: ${d.medicamentos}`:"",d.tratamentos?`Tratamentos anteriores: ${d.tratamentos}`:"",`Preferência: ${d.dias.join(", ")}${d.turno?" · "+d.turno:""}`,d.descricao?`Relato: ${d.descricao}`:"",d.observacoes?`Obs.: ${d.observacoes}`:""].filter((l,i)=>l!==""||i===1).join("\n");}
+// one-tap answers advance on their own (pointer only, so keyboard users can still move between options)
+form.addEventListener("click",e=>{const inp=e.target.closest(".opt input[type=radio]");if(!inp||!e.detail||!steps[cs].hasAttribute("data-auto"))return;clearTimeout(autoT);autoT=setTimeout(next,360);});
+form.addEventListener("change",e=>{const t=e.target;
+  if(t.name==="sexo")$("#padraoOpts").dataset.sx="";
+  if(t.type==="checkbox"&&t.checked){$$(`[name="${t.name}"]`,form).forEach(o=>{if(o!==t&&(t.hasAttribute("data-none")||o.hasAttribute("data-none")))o.checked=false;});}});
+function waMessage(d){return[`Olá, Keila! Quero agendar minha avaliação capilar (${brl(Number(config.valor)||100)}).`,``,`Nome: ${d.nome}`,d.idade?`Idade: ${d.idade}`:"",`Queixas: ${d.queixas.join(", ")}`,d.padrao?`Imagem escolhida: ${d.padrao}`:"",d.evolucao?`Como a queda evoluiu: ${d.evolucao}`:"",d.tempo?`Há quanto tempo: ${d.tempo}`:"",d.tipo?`Couro cabeludo: ${d.tipo}`:"",d.familia?`Casos na família: ${d.familia}`:"",d.eventos.length?`Últimos meses: ${d.eventos.join(", ")}`:"",d.quimica.length?`Química: ${d.quimica.join(", ")}`:"",d.medicamentos?`Medicamentos: ${d.medicamentos}`:"",d.tratamentos?`Tratamentos anteriores: ${d.tratamentos}`:"",d.objetivo?`Objetivo: ${d.objetivo}`:"",`Preferência: ${d.dias.join(", ")}${d.turno?" · "+d.turno:""}`,d.descricao?`Relato: ${d.descricao}`:"",d.observacoes?`Obs.: ${d.observacoes}`:""].filter((l,i)=>l!==""||i===1).join("\n");}
 function waLink(n,text){const x=onlyDigits(n);const full=x&&x.length<=11?"55"+x:x;return(full?`https://wa.me/${full}`:`https://wa.me/`)+`?text=${encodeURIComponent(text)}`;}
 async function submit(){const btn=$("#nextBtn");btn.disabled=true;btn.textContent="Enviando…";const d=collect();
   const rec=Object.assign({},d,{status:"novo",pago:false,valor:Number(config.valor)||100,createdAt:new Date().toISOString(),origem:"site",dataConsulta:"",horaConsulta:"",notas:""});
@@ -1015,7 +1208,7 @@ async function submit(){const btn=$("#nextBtn");btn.disabled=true;btn.textConten
   if(config.pix){$("#pixBox").hidden=false;$("#pixBox").innerHTML=`Pagamento via Pix: <strong>${esc(config.pix)}</strong>. Envie o comprovante no WhatsApp.`;}
   form.hidden=true;const dn=$("#doneBox");dn.hidden=false;requestAnimationFrame(()=>dn.classList.add("show"));btn.disabled=false;
   $("#doneBox h3").setAttribute("tabindex","-1");$("#doneBox h3").focus();}
-$("#againBtn").addEventListener("click",()=>{form.reset();form.hidden=false;const dn=$("#doneBox");dn.hidden=true;dn.classList.remove("show");moved=false;show(0);});
+$("#againBtn").addEventListener("click",()=>{form.reset();$("#padraoOpts").dataset.sx="";form.hidden=false;const dn=$("#doneBox");dn.hidden=true;dn.classList.remove("show");moved=false;show(0);});
 show(0);
 
 /* ===== Routing ===== */
