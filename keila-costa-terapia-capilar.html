@@ -251,6 +251,8 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
 .rail3 li::before{content:attr(data-s);display:grid;place-items:center;width:22px;height:22px;border-radius:50%;border:1px solid rgba(227,205,156,.3);font-size:.72rem;flex:none;transition:all .3s}
 .rail3 li.on{color:var(--linen)}
 .rail3 li.on::before{background:var(--gold);border-color:var(--gold);color:var(--night)}
+.intro-list li.ok i{background:rgba(196,162,103,.18);border-color:var(--gold);color:var(--gold-2)}
+.intro-list li.ok b{color:var(--mist)}
 .rail3 li.done::before{content:"✓";background:rgba(196,162,103,.18);border-color:var(--gold);color:var(--gold-2)}
 @media (max-width:440px){.rail3 li:not(.on) span{display:none}.rail3 li:not(.on){flex:none}}
 .qbar{height:2px;background:rgba(227,205,156,.16);border-radius:2px;overflow:hidden;margin-bottom:10px}
@@ -283,9 +285,9 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
 .why b{display:block;color:var(--linen);font-weight:500;margin-bottom:3px}
 .intro-list{list-style:none;padding:0;margin:26px 0 0;display:grid;gap:2px;position:relative}
 .intro-list li{display:flex;align-items:center;gap:14px;padding:16px 18px;border-radius:16px;border:1px solid transparent}
-.intro-list li:first-child{background:rgba(239,232,219,.06);border-color:rgba(227,205,156,.22)}
+.intro-list li.cur{background:rgba(239,232,219,.06);border-color:rgba(227,205,156,.22)}
 .intro-list i{font-style:normal;display:grid;place-items:center;width:26px;height:26px;border-radius:50%;border:1px solid rgba(227,205,156,.35);font-size:.8rem;color:var(--gold-2);flex:none}
-.intro-list li:first-child i{background:var(--gold);color:var(--night);border-color:var(--gold)}
+.intro-list li.cur i{background:var(--gold);color:var(--night);border-color:var(--gold)}
 .intro-list b{font-weight:500;color:var(--linen);flex:1}
 .intro-list span{font-size:.8rem;color:var(--mist)}
 .insight{border:1px solid rgba(196,162,103,.35);border-radius:16px;padding:18px 20px;margin-bottom:14px;background:rgba(196,162,103,.06)}
@@ -299,6 +301,70 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
 .sumwrap summary{display:inline-flex;font-family:inherit;font-size:.9rem;color:var(--gold-2);margin-bottom:10px;text-decoration:underline;text-underline-offset:4px}
 .sumwrap summary::after{content:none}
 .form-nav [hidden]{display:none}
+.opt[hidden]{display:none}
+.sheet .check input{width:18px;height:18px;padding:0;flex:none;box-shadow:none}
+.opt-sep{border:0;border-top:1px solid rgba(227,205,156,.15);margin:14px 0}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.cal{border:1px solid rgba(227,205,156,.2);border-radius:18px;padding:14px 14px 10px;background:rgba(239,232,219,.03)}
+.cal[hidden]{display:none}
+.cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.cal-head strong{font-family:var(--serif);font-weight:400;font-size:1.35rem;color:var(--linen)}
+.cal-nav{width:38px;height:38px;border-radius:50%;border:1px solid rgba(227,205,156,.28);background:transparent;color:var(--linen);font-size:1.3rem;cursor:pointer;line-height:1}
+.cal-nav:disabled{opacity:.25;cursor:default}
+.cal-week,.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}
+.cal-week span{font-size:.72rem;color:var(--mist);padding:4px 0;letter-spacing:.08em}
+.cal-grid.loading{opacity:.4}
+.cal-day{position:relative;aspect-ratio:1;max-height:48px;width:100%;border-radius:12px;border:1px solid transparent;background:rgba(196,162,103,.1);color:var(--linen);font:inherit;font-size:.95rem;cursor:pointer;transition:background .2s,border-color .2s}
+.cal-day i{position:absolute;left:50%;bottom:6px;width:4px;height:4px;margin-left:-2px;border-radius:50%;background:var(--gold)}
+.cal-day:hover:not(:disabled){border-color:var(--gold)}
+.cal-day:disabled{background:transparent;color:rgba(239,232,219,.25);cursor:default}
+.cal-day.today{box-shadow:inset 0 0 0 1px rgba(227,205,156,.4)}
+.cal-day.sel{background:var(--gold);color:var(--night)}
+.cal-day.sel i{background:var(--night)}
+.cal-day:focus-visible,.slot:focus-visible{outline:2px solid var(--gold-2);outline-offset:2px}
+.slots{margin-top:18px}
+.slots .hint,.cal-off{color:var(--mist);font-size:.92rem}
+.cal-off{padding:16px;border:1px dashed rgba(227,205,156,.35);border-radius:14px}
+.slots-day{font-family:var(--serif);font-size:1.3rem;color:var(--linen);margin:0 0 10px}
+.slot-grp{display:grid;grid-template-columns:96px 1fr;gap:10px;align-items:start;margin-bottom:10px}
+.slot-grp>span{font-size:.82rem;color:var(--mist);padding-top:10px}
+.slot-grp>div{display:flex;flex-wrap:wrap;gap:8px}
+.slot{min-width:72px;padding:10px 14px;border-radius:12px;border:1px solid rgba(227,205,156,.28);background:transparent;color:var(--linen);font:inherit;font-size:.95rem;cursor:pointer;transition:all .2s}
+.slot:hover{border-color:var(--gold)}
+.slot.sel{background:var(--gold);border-color:var(--gold);color:var(--night)}
+@media (max-width:520px){.slot-grp{grid-template-columns:1fr;gap:6px}.slot-grp>span{padding-top:0}}
+.picked{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;padding:14px 18px;border-radius:16px;background:rgba(239,232,219,.06);margin-bottom:14px}
+.picked span{font-size:.8rem;color:var(--mist);width:100%}
+.picked b{font-family:var(--serif);font-weight:400;font-size:1.35rem;color:var(--linen)}
+.linkish{background:none;border:0;color:var(--gold-2);text-decoration:underline;text-underline-offset:3px;cursor:pointer;font:inherit;font-size:.88rem;padding:0}
+.done-slot{font-family:var(--serif);font-size:1.6rem;color:var(--gold-2);margin:10px 0 0}
+.adm-right{display:flex;align-items:center;gap:10px}
+.adm-tabs[hidden],.adm-out[hidden]{display:none}
+.adm-out{border:1px solid rgba(255,255,255,.2);background:transparent;color:#DCD6C4;padding:8px 14px;border-radius:999px;cursor:pointer;font-size:.85rem}
+@media (max-width:560px){.adm-top .mark span{display:none}.adm-tabs button{padding:8px 11px;font-size:.84rem}}
+.login{display:flex;gap:10px;max-width:420px;margin:20px auto 6px}
+.login input{flex:1}
+.gate .back{display:inline-block;margin-top:18px;color:var(--muted)}
+.flag{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;background:#B5553F;color:#fff;font-size:.72rem;font-weight:600;vertical-align:2px}
+.alert{border:1px solid #D9A08F;background:rgba(181,85,63,.08);border-radius:14px;padding:12px 16px;margin:0 0 18px;font-size:.92rem}
+.alert ul{margin:6px 0 0;padding-left:18px}
+.panel h5{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:18px 0 8px;font-weight:500}
+.agenda{display:grid;gap:22px;margin-top:22px}
+.ag-day h3{font-family:var(--serif);font-weight:400;font-size:1.5rem;margin:0 0 10px}
+.ag-item{display:grid;grid-template-columns:70px 1fr auto;gap:14px;align-items:center;width:100%;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 16px;margin-bottom:8px;cursor:pointer;color:var(--text);font:inherit}
+.ag-item .t{font-family:var(--serif);font-size:1.4rem}
+.ag-item small{display:block;color:var(--muted);font-size:.84rem}
+.cfg .box h4{margin:0 0 14px;font-size:1.05rem}
+.week{display:grid;gap:8px;margin-bottom:18px}
+.wd{display:grid;grid-template-columns:130px 1fr auto 1fr;gap:10px;align-items:center}
+.wd .check{color:var(--text)}
+.to{font-size:.85rem;color:var(--muted)}
+.pair{display:flex;gap:10px;align-items:center}
+.pair input{flex:1}
+.bloqs{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.bq{display:inline-flex;align-items:center;gap:6px;padding:6px 8px 6px 12px;border-radius:999px;background:var(--surface-2);font-size:.88rem}
+.bq button{border:0;background:transparent;cursor:pointer;font-size:1rem;color:var(--muted);line-height:1}
+@media (max-width:520px){.wd{grid-template-columns:1fr 1fr}.wd .check{grid-column:1/-1}.wd .to{display:none}}
 .err{color:#E4A597;font-size:.88rem;margin-top:6px}
 .form-nav{display:flex;justify-content:space-between;gap:12px;margin-top:28px;padding-top:22px;border-top:1px solid rgba(227,205,156,.15)}
 .summary{display:grid;border:1px solid rgba(227,205,156,.18);border-radius:16px;overflow:hidden;margin:0 0 18px}
@@ -377,7 +443,7 @@ footer a{color:var(--gold-2)}
 .toolbar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:16px}
 .adm .chip span{border-color:var(--line);color:var(--text);padding:7px 14px;font-size:.88rem}
 .adm .chip input:checked + span{background:var(--olive);border-color:var(--olive);color:#F6F1E6;transform:none}
-.adm input[type=text],.adm input[type=tel],.adm input[type=number],.adm input[type=date],.adm input[type=time],.adm input[type=search],.adm select,.adm textarea,.sheet input,.sheet select,.sheet textarea{
+.adm input[type=password],.adm input[type=text],.adm input[type=tel],.adm input[type=number],.adm input[type=date],.adm input[type=time],.adm input[type=search],.adm select,.adm textarea,.sheet input,.sheet select,.sheet textarea{
   width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--text);font-size:16px}
 .adm textarea,.sheet textarea{min-height:90px;resize:vertical}
 .adm .field > label,.sheet .field > label{color:var(--text);font-weight:500}
@@ -582,12 +648,12 @@ footer a{color:var(--gold-2)}
             <p class="stepline" id="stepLine" aria-live="polite"></p>
           </div>
 
-          <fieldset class="fs q" data-stage="0">
+          <fieldset class="fs q" data-stage="1" data-intro>
             <h3>Vamos preparar a sua avaliação</h3>
             <p class="qsub">São perguntas rápidas, quase todas com um toque. Assim eu chego à consulta já entendendo o seu caso.</p>
             <ol class="intro-list">
-              <li><i>1</i><b>Como está seu cabelo</b><span>1 min</span></li>
-              <li><i>2</i><b>Falando da sua saúde</b><span>1 min</span></li>
+              <li class="cur"><i>1</i><b>Como está seu cabelo</b><span>1 min</span></li>
+              <li><i>2</i><b>Falando da sua saúde</b><span>2 min</span></li>
               <li><i>3</i><b>Seus dados e horário</b><span>1 min</span></li>
             </ol>
           </fieldset>
@@ -659,8 +725,18 @@ footer a{color:var(--gold-2)}
             <div class="why"><b>Por que pergunto?</b>Oleosidade e ressecamento mudam os ativos e a frequência de lavagem que vou indicar.</div>
           </fieldset>
 
+          <fieldset class="fs q" data-stage="2" data-intro hidden>
+            <h3>Hora de falar sobre a sua saúde</h3>
+            <p class="qsub">Suas respostas ficam só entre nós e me ajudam a escolher um protocolo seguro para você. Quando for preciso, eu indico acompanhamento médico.</p>
+            <ol class="intro-list">
+              <li class="ok"><i>✓</i><b>Como está seu cabelo</b></li>
+              <li class="cur"><i>2</i><b>Falando da sua saúde</b><span>2 min</span></li>
+              <li><i>3</i><b>Seus dados e horário</b><span>1 min</span></li>
+            </ol>
+          </fieldset>
+
           <fieldset class="fs q" data-stage="2" data-auto hidden>
-            <p class="qk">Sua saúde</p>
+            <p class="qk">Histórico de saúde</p>
             <h3>Existe histórico de calvície ou queda na sua família?</h3>
             <div class="opts">
               <label class="opt"><input type="radio" name="familia" value="Sim"><span>Sim</span></label>
@@ -670,14 +746,40 @@ footer a{color:var(--gold-2)}
             <div class="why"><b>Por que pergunto?</b>A queda de origem hereditária é uma das causas mais comuns, em homens e mulheres. Saber disso ajuda a interpretar o que a tricoscopia mostrar.</div>
           </fieldset>
 
+          <fieldset class="fs q" data-stage="2" data-auto hidden>
+            <p class="qk">Histórico de saúde</p>
+            <h3>Você teve algum problema no couro cabeludo ou em outras partes do corpo recentemente?</h3>
+            <div class="opts">
+              <label class="opt"><input type="radio" name="problema" value="Sim"><span>Sim</span></label>
+              <label class="opt"><input type="radio" name="problema" value="Não"><span>Não</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="fs q" data-stage="2" data-if="problema=Sim" hidden>
+            <p class="qk">Histórico de saúde</p>
+            <h3>Qual problema você teve?</h3>
+            <p class="qsub">Marque todas as opções que aconteceram.</p>
+            <div class="opts">
+              <label class="opt"><input type="checkbox" name="problemas" value="Dor ou vermelhidão no couro cabeludo"><span>Dor ou vermelhidão no couro cabeludo</span></label>
+              <label class="opt"><input type="checkbox" name="problemas" value="Coceira no couro cabeludo"><span>Coceira no couro cabeludo</span></label>
+              <label class="opt"><input type="checkbox" name="problemas" value="Caspa ou descamação"><span>Caspa ou descamação</span></label>
+              <label class="opt"><input type="checkbox" name="problemas" value="Psoríase ou dermatite seborreica"><span>Psoríase ou dermatite seborreica</span></label>
+              <label class="opt"><input type="checkbox" name="problemas" value="Feridas ou bolinhas com pus"><span>Feridas ou bolinhas com pus</span></label>
+              <label class="opt"><input type="checkbox" name="problemas" value="Queimadura solar no couro cabeludo"><span>Queimadura solar no couro cabeludo</span></label>
+              <label class="opt"><input type="checkbox" name="problemas" value="Queda de pelos do corpo"><span><em>Queda de pelos do corpo<small>Sobrancelhas, cílios, barba ou outras áreas.</small></em></span></label>
+              <label class="opt"><input type="checkbox" name="problemas" value="Outros"><span>Outros</span></label>
+            </div>
+            <div class="field" style="margin-top:14px"><label for="f-probout">Quer detalhar?</label><input type="text" id="f-probout" name="problemasOutro" placeholder="Opcional"></div>
+          </fieldset>
+
           <fieldset class="fs q" data-stage="2" hidden>
-            <p class="qk">Sua saúde</p>
+            <p class="qk">Histórico de saúde</p>
             <h3>Nos últimos meses, você passou por algo assim?</h3>
             <p class="qsub">Marque todas as opções que aconteceram.</p>
             <div class="opts two">
               <label class="opt"><input type="checkbox" name="eventos" value="Estresse intenso"><span>Estresse intenso</span></label>
-              <label class="opt"><input type="checkbox" name="eventos" value="Gestação / pós-parto"><span>Gestação ou pós-parto</span></label>
-              <label class="opt"><input type="checkbox" name="eventos" value="Dieta restritiva / emagrecimento"><span>Dieta restritiva</span></label>
+              <label class="opt" data-sx="F"><input type="checkbox" name="eventos" value="Gestação / pós-parto"><span>Gestação ou pós-parto</span></label>
+              <label class="opt"><input type="checkbox" name="eventos" value="Dieta restritiva / emagrecimento"><span>Dieta restritiva ou emagrecimento</span></label>
               <label class="opt"><input type="checkbox" name="eventos" value="Alteração hormonal"><span>Alteração hormonal</span></label>
               <label class="opt"><input type="checkbox" name="eventos" value="Doença, febre ou cirurgia"><span>Doença, febre ou cirurgia</span></label>
               <label class="opt"><input type="checkbox" name="eventos" value="Nenhum" data-none><span>Nada disso</span></label>
@@ -686,7 +788,81 @@ footer a{color:var(--gold-2)}
           </fieldset>
 
           <fieldset class="fs q" data-stage="2" hidden>
-            <p class="qk">Sua saúde</p>
+            <p class="qk">Histórico de saúde</p>
+            <h3>Você tem ou já teve alguma destas condições?</h3>
+            <div class="opts">
+              <label class="opt"><input type="checkbox" name="condicoes" value="Nenhuma" data-none><span>Não, nunca tive nenhuma destas</span></label>
+            </div>
+            <hr class="opt-sep">
+            <div class="opts">
+              <label class="opt"><input type="checkbox" name="condicoes" value="Tireoide"><span><em>Doenças da tireoide<small>Hipotireoidismo ou hipertireoidismo.</small></em></span></label>
+              <label class="opt"><input type="checkbox" name="condicoes" value="Anemia ou deficiência de vitaminas"><span>Anemia ou deficiência de ferro e vitaminas</span></label>
+              <label class="opt" data-sx="F"><input type="checkbox" name="condicoes" value="SOP (ovário policístico)"><span>SOP, ovário policístico</span></label>
+              <label class="opt" data-sx="M"><input type="checkbox" name="condicoes" value="Baixa libido ou disfunção erétil"><span>Baixa libido ou disfunção erétil com frequência</span></label>
+              <label class="opt" data-sx="M"><input type="checkbox" name="condicoes" value="Ginecomastia"><span>Ginecomastia</span></label>
+              <label class="opt"><input type="checkbox" name="condicoes" value="Cardíaca ou pressão"><span>Doenças cardíacas, pressão alta ou baixa não controlada, palpitações ou tonturas</span></label>
+              <label class="opt"><input type="checkbox" name="condicoes" value="Diabetes"><span>Diabetes</span></label>
+              <label class="opt"><input type="checkbox" name="condicoes" value="Doenças renais"><span>Doenças renais</span></label>
+              <label class="opt"><input type="checkbox" name="condicoes" value="Doenças do fígado"><span>Doenças do fígado</span></label>
+              <label class="opt"><input type="checkbox" name="condicoes" value="Câncer ou tratamento oncológico"><span>Câncer ou tratamento oncológico</span></label>
+              <label class="opt"><input type="checkbox" name="condicoes" value="Doença autoimune"><span><em>Doença autoimune<small>Lúpus, vitiligo, psoríase, entre outras.</small></em></span></label>
+              <label class="opt"><input type="checkbox" name="condicoes" value="Depressão, ansiedade ou pânico"><span>Depressão, ansiedade ou síndrome do pânico</span></label>
+            </div>
+            <div class="why"><b>Por que pergunto?</b>Algumas condições mudam os ativos e os procedimentos indicados, como microagulhamento, intradermoterapia e laser.</div>
+          </fieldset>
+
+          <fieldset class="fs q" data-stage="2" data-auto data-sx="F" hidden>
+            <p class="qk">Histórico de saúde</p>
+            <h3>Você está gestante, amamentando ou tentando engravidar?</h3>
+            <div class="opts">
+              <label class="opt"><input type="radio" name="gestacao" value="Gestante"><span>Estou gestante</span></label>
+              <label class="opt"><input type="radio" name="gestacao" value="Amamentando"><span>Estou amamentando</span></label>
+              <label class="opt"><input type="radio" name="gestacao" value="Tentando engravidar"><span>Estou tentando engravidar</span></label>
+              <label class="opt"><input type="radio" name="gestacao" value="Não"><span>Não</span></label>
+            </div>
+            <div class="why"><b>Por que pergunto?</b>Vários ativos e procedimentos não são indicados nessas fases. Existem opções seguras, e eu adapto o protocolo.</div>
+          </fieldset>
+
+          <fieldset class="fs q" data-stage="2" hidden>
+            <p class="qk">Histórico de saúde</p>
+            <h3>Você usa algum destes medicamentos?</h3>
+            <div class="opts two">
+              <label class="opt"><input type="checkbox" name="remedios" value="Anticoagulante ou AAS"><span>Anticoagulante ou AAS</span></label>
+              <label class="opt"><input type="checkbox" name="remedios" value="Isotretinoína (últimos 6 meses)"><span><em>Isotretinoína (Roacutan)<small>Nos últimos 6 meses.</small></em></span></label>
+              <label class="opt"><input type="checkbox" name="remedios" value="Anticoncepcional ou hormônios"><span>Anticoncepcional ou hormônios</span></label>
+              <label class="opt"><input type="checkbox" name="remedios" value="Remédio para tireoide"><span>Remédio para tireoide</span></label>
+              <label class="opt"><input type="checkbox" name="remedios" value="Antidepressivo ou ansiolítico"><span>Antidepressivo ou ansiolítico</span></label>
+              <label class="opt"><input type="checkbox" name="remedios" value="Nenhum" data-none><span>Nenhum</span></label>
+            </div>
+            <div class="field" style="margin-top:14px"><label for="f-medic">Outros medicamentos de uso contínuo</label><input type="text" id="f-medic" name="medicamentos" placeholder="Opcional"></div>
+          </fieldset>
+
+          <fieldset class="fs q" data-stage="2" hidden>
+            <p class="qk">Histórico de saúde</p>
+            <h3>Você tem alergia a algum destes?</h3>
+            <div class="opts two">
+              <label class="opt"><input type="checkbox" name="alergias" value="Minoxidil"><span>Minoxidil</span></label>
+              <label class="opt"><input type="checkbox" name="alergias" value="Finasterida ou dutasterida"><span>Finasterida ou dutasterida</span></label>
+              <label class="opt"><input type="checkbox" name="alergias" value="Saw palmetto"><span>Saw palmetto</span></label>
+              <label class="opt"><input type="checkbox" name="alergias" value="Anestésico local"><span>Anestésico local, como lidocaína</span></label>
+              <label class="opt"><input type="checkbox" name="alergias" value="Cosméticos ou fragrâncias"><span>Cosméticos ou fragrâncias</span></label>
+              <label class="opt"><input type="checkbox" name="alergias" value="Não tenho alergia" data-none><span>Não tenho alergia</span></label>
+              <label class="opt"><input type="checkbox" name="alergias" value="Não sei" data-none><span>Não sei</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="fs q" data-stage="2" hidden>
+            <p class="qk">Histórico de saúde</p>
+            <h3>Você já fez algum tratamento contínuo para queda por mais de 12 meses?</h3>
+            <div class="opts">
+              <label class="opt"><input type="radio" name="tratamentoLongo" value="Sim"><span>Sim</span></label>
+              <label class="opt"><input type="radio" name="tratamentoLongo" value="Não"><span>Não</span></label>
+            </div>
+            <div class="field" style="margin-top:14px"><label for="f-trat">Quais tratamentos você já fez?</label><input type="text" id="f-trat" name="tratamentos" placeholder="Ex.: minoxidil, vitaminas, intradermoterapia"></div>
+          </fieldset>
+
+          <fieldset class="fs q" data-stage="2" hidden>
+            <p class="qk">Histórico de saúde</p>
             <h3>Você faz alguma química no cabelo?</h3>
             <div class="opts two">
               <label class="opt"><input type="checkbox" name="quimica" value="Coloração"><span>Coloração</span></label>
@@ -696,19 +872,8 @@ footer a{color:var(--gold-2)}
             </div>
           </fieldset>
 
-          <fieldset class="fs q" data-stage="2" hidden>
-            <p class="qk">Sua saúde</p>
-            <h3>Algo mais sobre a sua saúde?</h3>
-            <p class="qsub">Tudo aqui é opcional.</p>
-            <div class="row2">
-              <div class="field"><label for="f-medic">Usa medicamento contínuo?</label><input type="text" id="f-medic" name="medicamentos" placeholder="Ex.: anticoncepcional, tireoide"></div>
-              <div class="field"><label for="f-trat">Já fez tratamento capilar?</label><input type="text" id="f-trat" name="tratamentos" placeholder="Ex.: minoxidil, vitaminas"></div>
-            </div>
-            <div class="field"><label for="f-descricao">Conte com suas palavras</label><textarea id="f-descricao" name="descricao" placeholder="Ex.: comecei a notar mais fios no banho depois do pós-parto…"></textarea></div>
-          </fieldset>
-
           <fieldset class="fs q" data-stage="2" data-auto hidden>
-            <p class="qk">Sua saúde</p>
+            <p class="qk">Histórico de saúde</p>
             <h3>O que você busca no tratamento?</h3>
             <div class="opts">
               <label class="opt"><input type="radio" name="objetivo" value="Recuperar volume e densidade"><span>Recuperar volume e densidade</span></label>
@@ -719,6 +884,16 @@ footer a{color:var(--gold-2)}
             </div>
           </fieldset>
 
+          <fieldset class="fs q" data-stage="3" data-intro hidden>
+            <h3>Agora, escolha o seu horário</h3>
+            <p class="qsub">Você vê a agenda da Keila em tempo real e reserva direto. A confirmação chega pelo WhatsApp.</p>
+            <ol class="intro-list">
+              <li class="ok"><i>✓</i><b>Como está seu cabelo</b></li>
+              <li class="ok"><i>✓</i><b>Falando da sua saúde</b></li>
+              <li class="cur"><i>3</i><b>Seus dados e horário</b><span>1 min</span></li>
+            </ol>
+          </fieldset>
+
           <fieldset class="fs q" data-stage="3" data-v="dados" hidden>
             <p class="qk">Agendamento</p>
             <h3>Como posso te chamar?</h3>
@@ -727,38 +902,31 @@ footer a{color:var(--gold-2)}
               <div class="field"><label for="f-whats">WhatsApp <span class="req">*</span></label><input type="tel" id="f-whats" name="whatsapp" autocomplete="tel" inputmode="tel" placeholder="(00) 00000-0000"><div class="err" id="e-whats"></div></div>
               <div class="field"><label for="f-idade">Idade</label><input type="number" id="f-idade" name="idade" min="1" max="110" inputmode="numeric"></div>
             </div>
+            <div class="hp" aria-hidden="true"><label>Site <input type="text" name="site" tabindex="-1" autocomplete="off"></label></div>
           </fieldset>
 
-          <fieldset class="fs q" data-stage="3" data-v="dias" hidden>
+          <fieldset class="fs q" data-stage="3" data-v="slot" hidden>
             <p class="qk">Agendamento</p>
-            <h3>Quando prefere vir?</h3>
-            <div class="field"><span class="lbl">Dias de preferência <span class="req">*</span></span>
-              <div class="chips">
-                <label class="chip"><input type="checkbox" name="dias" value="Terça"><span>Terça</span></label>
-                <label class="chip"><input type="checkbox" name="dias" value="Quarta"><span>Quarta</span></label>
-                <label class="chip"><input type="checkbox" name="dias" value="Quinta"><span>Quinta</span></label>
-                <label class="chip"><input type="checkbox" name="dias" value="Sexta"><span>Sexta</span></label>
-                <label class="chip"><input type="checkbox" name="dias" value="Sábado"><span>Sábado</span></label>
-              </div>
-              <div class="err" id="e-dias"></div>
+            <h3>Escolha o dia e o horário</h3>
+            <p class="qsub" id="calSub">A avaliação dura cerca de 1 hora. Só aparecem os horários livres.</p>
+            <div class="cal" id="cal">
+              <div class="cal-head"><button type="button" class="cal-nav" id="calPrev" aria-label="Mês anterior">‹</button><strong id="calTitle" aria-live="polite"></strong><button type="button" class="cal-nav" id="calNext" aria-label="Próximo mês">›</button></div>
+              <div class="cal-week" aria-hidden="true"><span>D</span><span>S</span><span>T</span><span>Q</span><span>Q</span><span>S</span><span>S</span></div>
+              <div class="cal-grid" id="calGrid"></div>
             </div>
-            <div class="field"><span class="lbl">Turno</span>
-              <div class="chips">
-                <label class="chip"><input type="radio" name="turno" value="Manhã (9h–12h)"><span>Manhã, 9h–12h</span></label>
-                <label class="chip"><input type="radio" name="turno" value="Tarde (13h–16h)"><span>Tarde, 13h–16h</span></label>
-                <label class="chip"><input type="radio" name="turno" value="Fim da tarde (16h–19h)"><span>Fim da tarde, 16h–19h</span></label>
-              </div>
-            </div>
-            <div class="field"><label for="f-obs">Algo mais que eu deva saber?</label><textarea id="f-obs" name="observacoes"></textarea></div>
+            <div class="slots" id="slots" aria-live="polite"></div>
+            <div class="err" id="e-slot"></div>
           </fieldset>
 
           <fieldset class="fs q" data-stage="3" data-v="ok" hidden>
             <p class="qk">Agendamento</p>
-            <h3>Confira e envie</h3>
+            <h3>Confira e confirme</h3>
+            <div class="picked" id="picked"></div>
             <div class="insight" id="insight"></div>
             <details class="sumwrap"><summary>Ver todas as respostas</summary><dl class="summary" id="summary"></dl></details>
+            <div class="field"><label for="f-obs">Algo mais que eu deva saber?</label><textarea id="f-obs" name="observacoes" placeholder="Opcional"></textarea></div>
             <div class="totalbox"><span>Avaliação capilar</span><span class="amt js-price">R$ 100</span></div>
-            <label class="check"><input type="checkbox" id="f-ok"><span>Concordo em compartilhar essas informações para o pré-atendimento. O horário é confirmado pelo WhatsApp.</span></label>
+            <label class="check"><input type="checkbox" id="f-ok"><span>Concordo em compartilhar essas informações com a Keila Costa para o meu atendimento.</span></label>
             <div class="err" id="e-ok"></div>
           </fieldset>
 
@@ -772,10 +940,12 @@ footer a{color:var(--gold-2)}
         <div class="done" id="doneBox" hidden>
           <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="32" cy="32" r="29"/><path d="M20 33l8 8 16-18" stroke-linecap="round" stroke-linejoin="round"/></svg>
           <h3>Pedido recebido</h3>
+          <p class="done-slot" id="doneSlot" hidden></p>
           <p id="doneText">Agora é só me chamar no WhatsApp para confirmarmos o dia e o horário.</p>
           <div class="pix" id="pixBox" hidden></div>
           <div class="btns">
             <a class="btn" id="waBtn" href="#" target="_blank" rel="noopener">Confirmar pelo WhatsApp</a>
+            <a class="btn line" id="gcalBtn" href="#" target="_blank" rel="noopener" hidden>Adicionar à minha agenda</a>
             <button class="btn line" type="button" id="againBtn">Novo agendamento</button>
           </div>
         </div>
@@ -810,7 +980,7 @@ footer a{color:var(--gold-2)}
 <footer>
   <div class="wrap">
     <a class="mark" href="#top"><svg><use href="#kc"/></svg><span>Keila Costa<small>Studio · Tricologia</small></span></a>
-    <p>Terça a sábado, 9h às 19h · <a href="https://instagram.com/keila_tricologista" target="_blank" rel="noopener">@keila_tricologista</a><button class="team-link" id="teamLink" type="button" hidden>Área da equipe</button></p>
+    <p>Terça a sábado, 9h às 19h · <a href="https://instagram.com/keila_tricologista" target="_blank" rel="noopener">@keila_tricologista</a><button class="team-link" id="teamLink" type="button">Área da equipe</button></p>
   </div>
 </footer>
 </div>
@@ -820,10 +990,11 @@ footer a{color:var(--gold-2)}
   <header class="adm-top">
     <div class="wrap">
       <a class="mark" href="#top" id="toSite"><svg><use href="#kc"/></svg><span>Painel<small>Keila Costa</small></span></a>
-      <div class="adm-tabs" role="tablist">
-        <button role="tab" aria-selected="true" data-tab="ag">Agendamentos</button>
+      <div class="adm-right"><div class="adm-tabs" id="admTabs" role="tablist" hidden>
+        <button role="tab" aria-selected="true" data-tab="ag">Pedidos</button>
+        <button role="tab" aria-selected="false" data-tab="agenda">Agenda</button>
         <button role="tab" aria-selected="false" data-tab="cfg">Ajustes</button>
-      </div>
+      </div><button class="adm-out" id="admOut" type="button" hidden>Sair</button></div>
     </div>
   </header>
   <div class="adm-main"><div class="wrap" id="admBody"></div></div>
@@ -843,7 +1014,7 @@ const onlyDigits=s=>String(s||"").replace(/\D/g,"");
 const reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;
 const fine=matchMedia("(pointer:fine)").matches;
 
-let config={whatsapp:"",valor:100,pix:"",endereco:""};
+let config={whatsapp:"",valor:100,pix:"",endereco:"",duracao:60};
 let db=null,user=null,isAdmin=false,bookings=[];
 
 function toast(m){const t=$("#toast");t.textContent=m;t.hidden=false;clearTimeout(toast._t);toast._t=setTimeout(()=>t.hidden=true,2600);}
@@ -1060,6 +1231,7 @@ function updateTimeline(){
   chips.forEach(b=>b.addEventListener("click",()=>{picked=true;setCond(b.dataset.c);}));
   function size(){
     dpr=Math.min(devicePixelRatio||1,2);W=box.clientWidth;H=box.clientHeight;
+    if(!W||!H){W=0;return;}
     cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);
     if(!hi){hi=document.createElement("canvas");hctx=hi.getContext("2d");}
     seedUnits();renderHi();
@@ -1067,6 +1239,7 @@ function updateTimeline(){
     frame();
   }
   function frame(){
+    if(!W){raf=0;return;}
     const R=Math.min(W,H)*(W<640?.26:.22);
     lx+=(tlx-lx)*.2;ly+=(tly-ly)*.2;
     ctx.clearRect(0,0,W,H);
@@ -1108,32 +1281,75 @@ function updateTimeline(){
   },{threshold:.5}).observe(box);
 })();
 
+/* ===== API ===== */
+async function api(a,body){
+  let r,j=null;
+  try{r=await fetch("api.php?a="+a,{method:body?"POST":"GET",headers:body?{"Content-Type":"application/json","X-Req":"1"}:{"X-Req":"1"},credentials:"same-origin",cache:"no-store",body:body?JSON.stringify(body):undefined});}
+  catch(e){const err=new Error("Sem conexão com o servidor.");err.status=0;throw err;}
+  try{j=await r.json();}catch(e){}
+  if(!r.ok||!j||!j.ok){const err=new Error((j&&j.erro)||"Sem conexão com o servidor.");err.status=r.status;throw err;}
+  return j;}
+
 /* ===== Booking quiz ===== */
 function maskPhone(v){const d=onlyDigits(v).slice(0,11);if(d.length<=2)return d.length?"("+d:"";if(d.length<=6)return"("+d.slice(0,2)+") "+d.slice(2);if(d.length<=10)return"("+d.slice(0,2)+") "+d.slice(2,6)+"-"+d.slice(6);return"("+d.slice(0,2)+") "+d.slice(2,7)+"-"+d.slice(7);}
 $("#f-whats").addEventListener("input",e=>{e.target.value=maskPhone(e.target.value);});
 const form=$("#bookForm"),steps=$$(".fs",form);let cs=0;
+let slot={data:"",hora:""},agendaOk=true;
 const vals=n=>$$(`[name="${n}"]:checked`,form).map(i=>i.value);
 function val(n){const el=form.elements[n];if(!el)return"";if(el instanceof RadioNodeList)return el.value||"";return(el.value||"").trim();}
-function collect(){return{nome:val("nome"),whatsapp:val("whatsapp"),idade:val("idade"),sexo:val("sexo"),queixas:vals("queixas"),padrao:val("padrao"),evolucao:val("evolucao"),tempo:val("tempo"),tipo:val("tipo"),familia:val("familia"),eventos:vals("eventos"),quimica:vals("quimica"),medicamentos:val("medicamentos"),tratamentos:val("tratamentos"),descricao:val("descricao"),objetivo:val("objetivo"),dias:vals("dias"),turno:val("turno"),observacoes:val("observacoes")};}
+const sx=()=>val("sexo")==="Masculino"?"M":"F";
+function active(st){const c=st.dataset.if;if(c){const[k,v]=c.split("=");if(val(k)!==v)return false;}return!st.dataset.sx||st.dataset.sx===sx();}
+function collect(){
+  const off=$$(`.opt[data-sx]:not([data-sx="${sx()}"]) input`,form).map(i=>i.value),keep=a=>a.filter(v=>!off.includes(v));
+  const d={nome:val("nome"),whatsapp:val("whatsapp"),idade:val("idade"),sexo:val("sexo"),queixas:vals("queixas"),padrao:val("padrao"),evolucao:val("evolucao"),tempo:val("tempo"),tipo:val("tipo"),
+    familia:val("familia"),problema:val("problema"),problemas:vals("problemas"),problemasOutro:val("problemasOutro"),eventos:keep(vals("eventos")),condicoes:keep(vals("condicoes")),gestacao:val("gestacao"),
+    remedios:vals("remedios"),medicamentos:val("medicamentos"),alergias:vals("alergias"),tratamentoLongo:val("tratamentoLongo"),tratamentos:val("tratamentos"),quimica:vals("quimica"),objetivo:val("objetivo"),
+    observacoes:val("observacoes"),data:slot.data,hora:slot.hora};
+  if(d.problema!=="Sim"){d.problemas=[];d.problemasOutro="";}
+  if(sx()==="M")d.gestacao="";
+  return d;}
+const GROUPS=[
+  ["Contato",[["nome","Nome"],["whatsapp","WhatsApp"],["idade","Idade"],["sexo","Sexo"]]],
+  ["Seu cabelo",[["queixas","Queixas"],["padrao","Imagem escolhida"],["evolucao","Como a queda evoluiu"],["tempo","Há quanto tempo"],["tipo","Couro cabeludo"]]],
+  ["Sua saúde",[["familia","Casos na família"],["problemas","Problemas recentes"],["problemasOutro","Detalhe dos problemas"],["eventos","Últimos meses"],["condicoes","Condições de saúde"],["gestacao","Gestação"],["remedios","Medicamentos"],["medicamentos","Outros medicamentos"],["alergias","Alergias"],["tratamentoLongo","Tratou a queda por mais de 12 meses"],["tratamentos","Tratamentos anteriores"],["quimica","Química"],["objetivo","Objetivo"],["descricao","Relato"]]],
+  ["Agendamento",[["observacoes","Observações"],["dias","Dias de preferência"],["turno","Turno"]]]];
+const LABELS=GROUPS.flatMap(g=>g[1]);
+const fmt=v=>Array.isArray(v)?v.join(", "):(v??"");
 function setErr(id,m){const e=$("#"+id);if(e)e.textContent=m||"";}
 function validate(i){const d=collect(),v=steps[i].dataset.v;let ok=true;
   if(v==="queixas"){setErr("e-queixas",d.queixas.length?"":"Escolha pelo menos uma opção.");ok=!!d.queixas.length;}
   if(v==="dados"){setErr("e-nome","");setErr("e-whats","");if(d.nome.length<3){setErr("e-nome","Escreva seu nome completo.");ok=false;}if(onlyDigits(d.whatsapp).length<10){setErr("e-whats","Informe o WhatsApp com DDD.");ok=false;}}
-  if(v==="dias"){setErr("e-dias",d.dias.length?"":"Escolha pelo menos um dia.");ok=!!d.dias.length;}
-  if(v==="ok"){const c=$("#f-ok").checked;setErr("e-ok",c?"":"Marque a caixa para enviar.");ok=c;}
+  if(v==="slot"&&agendaOk){ok=!!slot.hora;setErr("e-slot",ok?"":"Escolha um dia e um horário.");}
+  if(v==="ok"){const c=$("#f-ok").checked;setErr("e-ok",c?"":"Marque a caixa para confirmar.");ok=c;}
   return ok;}
-const LABELS=[["nome","Nome"],["whatsapp","WhatsApp"],["idade","Idade"],["sexo","Sexo"],["queixas","Queixas"],["padrao","Imagem escolhida"],["evolucao","Como a queda evoluiu"],["tempo","Há quanto tempo"],["tipo","Couro cabeludo"],["familia","Casos na família"],["eventos","Últimos meses"],["quimica","Química"],["medicamentos","Medicamentos"],["tratamentos","Tratamentos anteriores"],["descricao","Relato"],["objetivo","Objetivo"],["dias","Dias"],["turno","Turno"],["observacoes","Observações"]];
-const fmt=v=>Array.isArray(v)?v.join(", "):v;
+
+// alerts shown to the visitor (insight) and to Keila (panel)
+function healthFlags(d){const f=[];
+  if(/Gestante|Amamentando|Tentando/.test(d.gestacao||""))f.push(["Gestação ou amamentação",`${d.gestacao}: só ativos e procedimentos seguros nesta fase.`]);
+  if((d.remedios||[]).some(x=>/Anticoagulante|Isotretinoína/.test(x)))f.push(["Medicamentos que pedem cuidado",(d.remedios||[]).filter(x=>/Anticoagulante|Isotretinoína/.test(x)).join(", ")+": atenção a microagulhamento e intradermoterapia."]);
+  const al=(d.alergias||[]).filter(x=>!/Não tenho|Não sei/.test(x));if(al.length)f.push(["Alergias",al.join(", ")+"."]);
+  const cond=(d.condicoes||[]).filter(x=>x!=="Nenhuma");if(cond.length)f.push(["Condições de saúde",cond.join(", ")+"."]);
+  if((d.problemas||[]).some(x=>/Feridas|pelos do corpo|Psoríase/.test(x)))f.push(["Pode pedir avaliação médica",(d.problemas||[]).filter(x=>/Feridas|pelos do corpo|Psoríase/.test(x)).join(", ")+"."]);
+  return f;}
+const MES=["janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"],DSEM=["domingo","segunda","terça","quarta","quinta","sexta","sábado"];
+const cap=s=>s.charAt(0).toUpperCase()+s.slice(1);
+const fmtH=h=>h?h.replace(/^0/,"").replace(":00","h").replace(":","h"):"";
+const iso=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+function dayLabel(k){const[y,m,dd]=k.split("-").map(Number);return`${cap(DSEM[new Date(y,m-1,dd).getDay()])}, ${dd} de ${MES[m-1]}`;}
+const slotLabel=(k,h)=>k?`${dayLabel(k)}, às ${fmtH(h)}`:"";
 function renderSummary(){const d=collect();$("#summary").innerHTML=LABELS.filter(([k])=>fmt(d[k])).map(([k,l])=>`<div><dt>${esc(l)}</dt><dd>${esc(fmt(d[k]))}</dd></div>`).join("");}
 function renderInsight(){
   const d=collect(),q=d.queixas.join(" "),p=d.padrao,items=[];
   if(/Risca|Topo|Rarefação|Linha frontal|Entradas|Calvície/.test(p)||(d.familia==="Sim"&&/Queda|Entradas|Risca|finos/.test(q)))items.push(["Afinamento progressivo dos fios","sinais de miniaturização do folículo, comuns quando há um padrão hereditário."]);
   if(/repente/.test(d.evolucao)||d.eventos.some(e=>e!=="Nenhum"))items.push(["Queda por gatilho","estresse, pós-parto, dieta ou doença podem provocar uma queda intensa e, na maioria das vezes, reversível."]);
   if(/Falhas/.test(p))items.push(["Falhas localizadas","áreas sem fios pedem um olhar cuidadoso e, quando necessário, encaminhamento médico."]);
-  if(/Oleoso|Misto|Seco/.test(d.tipo)||/Caspa|Oleosidade|Coceira/.test(q))items.push(["Equilíbrio do couro cabeludo","oleosidade, descamação e sensibilidade interferem no crescimento saudável do fio."]);
+  if(/Oleoso|Misto|Seco/.test(d.tipo)||/Caspa|Oleosidade|Coceira/.test(q)||d.problemas.some(x=>/Caspa|Coceira|vermelhidão/.test(x)))items.push(["Equilíbrio do couro cabeludo","oleosidade, descamação e sensibilidade interferem no crescimento saudável do fio."]);
   if(d.quimica.some(x=>/Descolora|Progressiva/.test(x))||/Quebra/.test(q))items.push(["Saúde da fibra","quebra e danos causados por química e calor."]);
+  if(healthFlags(d).length)items.push(["Um protocolo seguro para a sua saúde","vou considerar o que você contou sobre saúde, medicamentos e alergias antes de indicar qualquer ativo."]);
   if(!items.length)items.push(["Saúde geral do couro cabeludo","uma análise completa dos fios e folículos para cuidar e prevenir."]);
-  $("#insight").innerHTML=`<h4>Na sua avaliação, vou olhar com atenção para:</h4><ul>${items.map(([b,t])=>`<li><b>${esc(b)}:</b> ${esc(t)}</li>`).join("")}</ul><p class="fine">Isto não é um diagnóstico. Ele só sai depois da nossa conversa e da tricoscopia.</p>`;}
+  $("#insight").innerHTML=`<h4>Na sua avaliação, vou olhar com atenção para:</h4><ul>${items.map(([b,t])=>`<li><b>${esc(b)}:</b> ${esc(t)}</li>`).join("")}</ul><p class="fine">Isto não é um diagnóstico. Ele só sai depois da nossa conversa e da tricoscopia.</p>`;
+  $("#picked").innerHTML=slot.hora?`<span>Seu horário</span><b>${esc(slotLabel(slot.data,slot.hora))}</b><button type="button" class="linkish" id="chgSlot">Trocar</button>`:`<span>Horário</span><b>Vamos combinar pelo WhatsApp</b>`;
+  const cb=$("#chgSlot");if(cb)cb.addEventListener("click",()=>show(steps.findIndex(s=>s.dataset.v==="slot")));}
 
 /* hair-pattern illustrations */
 let svgN=0;
@@ -1170,27 +1386,63 @@ const PADRAO={
   F:[["fnormal","Sem falhas aparentes"],["frisca","Risca mais larga"],["ftopo","Topo mais ralo"],["favanc","Rarefação avançada"],["ffrontal","Linha frontal recuando"],["fareata","Falhas redondas"]],
   M:[["msem","Sem falhas aparentes"],["ment","Entradas"],["mcoroa","Entradas e coroa"],["mmod","Calvície moderada"],["mext","Calvície avançada"],["mirr","Falhas irregulares"]]};
 function renderPadrao(){
-  const sx=val("sexo")==="Masculino"?"M":"F",box=$("#padraoOpts");if(box.dataset.sx===sx)return;
-  const cur=val("padrao");box.dataset.sx=sx;
-  box.innerHTML=PADRAO[sx].map(([k,l])=>`<label class="opt pic"><input type="radio" name="padrao" value="${l}"${l===cur?" checked":""}><span>${sx==="M"?headM(k):headF(k)}${l}</span></label>`).join("");
-  $("#padraoSub").textContent=sx==="M"?"Escolha a que chega mais perto. Não precisa ser exata.":"Vista de cima da cabeça, com a testa para o alto. Escolha a que chega mais perto.";}
+  const s=sx(),box=$("#padraoOpts");if(box.dataset.sx===s)return;
+  const cur=val("padrao");box.dataset.sx=s;
+  box.innerHTML=PADRAO[s].map(([k,l])=>`<label class="opt pic"><input type="radio" name="padrao" value="${l}"${l===cur?" checked":""}><span>${s==="M"?headM(k):headF(k)}${l}</span></label>`).join("");
+  $("#padraoSub").textContent=s==="M"?"Escolha a que chega mais perto. Não precisa ser exata.":"Vista de cima da cabeça, com a testa para o alto. Escolha a que chega mais perto.";}
+
+/* calendar */
+let calM=null,calCache={},calDias={},calLimite="";
+async function loadMonth(y,m){const k=y+"-"+m;if(calCache[k])return calCache[k];const r=await api(`horarios&de=${iso(new Date(y,m,1))}&ate=${iso(new Date(y,m+1,0))}`);calLimite=r.limite;return calCache[k]=r.dias;}
+async function renderCal(){
+  const now=new Date();if(!calM)calM=new Date(now.getFullYear(),now.getMonth(),1);
+  const y=calM.getFullYear(),m=calM.getMonth(),grid=$("#calGrid");
+  $("#calTitle").textContent=cap(MES[m])+" de "+y;
+  $("#calPrev").disabled=y===now.getFullYear()&&m===now.getMonth();
+  grid.classList.add("loading");
+  try{calDias=await loadMonth(y,m);agendaOk=true;}
+  catch(e){agendaOk=false;grid.classList.remove("loading");$("#cal").hidden=true;setErr("e-slot","");$("#slots").innerHTML=`<p class="cal-off">Não consegui carregar a agenda agora. Pode continuar: combinamos o melhor dia e horário pelo WhatsApp.</p>`;return;}
+  $("#cal").hidden=false;
+  $("#calNext").disabled=!!calLimite&&iso(new Date(y,m+1,1))>calLimite;
+  const first=new Date(y,m,1).getDay(),n=new Date(y,m+1,0).getDate(),today=iso(now);let h="";
+  for(let i=0;i<first;i++)h+="<span></span>";
+  for(let d=1;d<=n;d++){const k=iso(new Date(y,m,d)),free=(calDias[k]||[]).length,sel=k===slot.data;
+    h+=`<button type="button" class="cal-day${sel?" sel":""}${k===today?" today":""}" data-d="${k}" ${free?"":"disabled"} aria-pressed="${sel}" aria-label="${d} de ${MES[m]}, ${free?free+" horários livres":"sem horários"}">${d}${free?"<i></i>":""}</button>`;}
+  grid.innerHTML=h;grid.classList.remove("loading");
+  if(!slot.data||!(slot.data in calDias)){const f=Object.keys(calDias).find(k=>calDias[k].length);if(f&&!slot.data){slot.data=f;return renderCal();}}
+  renderSlots();}
+function renderSlots(){
+  const box=$("#slots");
+  if(!slot.data||!(slot.data in calDias)){box.innerHTML=`<p class="hint">${Object.values(calDias).some(a=>a.length)?"Escolha um dia para ver os horários livres.":"Sem horários livres neste mês. Veja o próximo."}</p>`;return;}
+  const hs=calDias[slot.data]||[];
+  if(!hs.length){box.innerHTML=`<p class="hint">Sem horários livres em ${esc(dayLabel(slot.data))}.</p>`;return;}
+  const grp=[["Manhã",x=>x<"12:00"],["Tarde",x=>x>="12:00"&&x<"17:00"],["Fim da tarde",x=>x>="17:00"]];
+  box.innerHTML=`<p class="slots-day">${esc(dayLabel(slot.data))}</p>`+grp.map(([l,f])=>{const g=hs.filter(f);return g.length?`<div class="slot-grp"><span>${l}</span><div>${g.map(x=>`<button type="button" class="slot${x===slot.hora?" sel":""}" data-h="${x}" aria-pressed="${x===slot.hora}">${fmtH(x)}</button>`).join("")}</div></div>`:"";}).join("");}
+$("#calGrid").addEventListener("click",e=>{const b=e.target.closest(".cal-day");if(!b||b.disabled)return;slot={data:b.dataset.d,hora:""};$$(".cal-day",$("#calGrid")).forEach(x=>{const s=x===b;x.classList.toggle("sel",s);x.setAttribute("aria-pressed",s);});renderSlots();});
+$("#slots").addEventListener("click",e=>{const b=e.target.closest(".slot");if(!b)return;slot.hora=b.dataset.h;setErr("e-slot","");$$(".slot",$("#slots")).forEach(x=>{const s=x===b;x.classList.toggle("sel",s);x.setAttribute("aria-pressed",s);});if(e.detail){clearTimeout(autoT);autoT=setTimeout(next,450);}});
+$("#calPrev").addEventListener("click",()=>{calM=new Date(calM.getFullYear(),calM.getMonth()-1,1);renderCal();});
+$("#calNext").addEventListener("click",()=>{calM=new Date(calM.getFullYear(),calM.getMonth()+1,1);renderCal();});
 
 let moved=false,autoT=0;
 function show(i){
-  cs=i;const st=steps[i],n=steps.length-1,intro=i===0,stage=+st.dataset.stage;
+  cs=i;const st=steps[i],intro=st.hasAttribute("data-intro")||i===0,stage=+st.dataset.stage;
   clearTimeout(autoT);steps.forEach((s,x)=>s.hidden=x!==i);
+  $$(".opt[data-sx]",st).forEach(o=>o.hidden=o.dataset.sx!==sx());
+  const qs=steps.filter(s=>!s.hasAttribute("data-intro")&&s!==steps[0]&&active(s)),pos=qs.indexOf(st)+1;
   $("#qHead").hidden=intro;
   $$("#rail3 li").forEach(li=>{const s=+li.dataset.s;li.classList.toggle("on",s===stage);li.classList.toggle("done",s<stage);});
-  $("#qBar").style.width=(i/n*100)+"%";
-  $("#stepLine").textContent=intro?"":`Pergunta ${i} de ${n}`;
-  $("#prevBtn").hidden=intro;
-  $("#nextBtn").textContent=intro?"Começar":i===n?"Enviar pedido":"Continuar";
+  $("#qBar").style.width=(pos/qs.length*100)+"%";
+  $("#stepLine").textContent=intro?"":`Pergunta ${pos} de ${qs.length}`;
+  $("#prevBtn").hidden=i===0;
+  const last=!steps.slice(i+1).some(active);
+  $("#nextBtn").textContent=i===0?"Começar":last?(agendaOk?"Confirmar agendamento":"Enviar pedido"):"Continuar";
   if(st.dataset.v==="padrao")renderPadrao();
-  if(i===n){renderSummary();renderInsight();}
+  if(st.dataset.v==="slot")renderCal();
+  if(last){renderSummary();renderInsight();}
   if(moved){const h=st.querySelector("h3");h.setAttribute("tabindex","-1");h.focus({preventScroll:true});const r=$("#formCard").getBoundingClientRect();if(r.top<0||r.top>innerHeight*.6)$("#formCard").scrollIntoView({block:"start",behavior:reduced?"auto":"smooth"});}
   moved=true;}
-async function next(){if(!validate(cs))return;if(cs<steps.length-1)return show(cs+1);await submit();}
-$("#prevBtn").addEventListener("click",()=>show(Math.max(0,cs-1)));
+async function next(){if(!validate(cs))return;for(let j=cs+1;j<steps.length;j++)if(active(steps[j]))return show(j);await submit();}
+$("#prevBtn").addEventListener("click",()=>{for(let j=cs-1;j>=0;j--)if(active(steps[j]))return show(j);});
 $("#nextBtn").addEventListener("click",next);
 form.addEventListener("submit",e=>e.preventDefault());
 // one-tap answers advance on their own (pointer only, so keyboard users can still move between options)
@@ -1198,47 +1450,80 @@ form.addEventListener("click",e=>{const inp=e.target.closest(".opt input[type=ra
 form.addEventListener("change",e=>{const t=e.target;
   if(t.name==="sexo")$("#padraoOpts").dataset.sx="";
   if(t.type==="checkbox"&&t.checked){$$(`[name="${t.name}"]`,form).forEach(o=>{if(o!==t&&(t.hasAttribute("data-none")||o.hasAttribute("data-none")))o.checked=false;});}});
-function waMessage(d){return[`Olá, Keila! Quero agendar minha avaliação capilar (${brl(Number(config.valor)||100)}).`,``,`Nome: ${d.nome}`,d.idade?`Idade: ${d.idade}`:"",`Queixas: ${d.queixas.join(", ")}`,d.padrao?`Imagem escolhida: ${d.padrao}`:"",d.evolucao?`Como a queda evoluiu: ${d.evolucao}`:"",d.tempo?`Há quanto tempo: ${d.tempo}`:"",d.tipo?`Couro cabeludo: ${d.tipo}`:"",d.familia?`Casos na família: ${d.familia}`:"",d.eventos.length?`Últimos meses: ${d.eventos.join(", ")}`:"",d.quimica.length?`Química: ${d.quimica.join(", ")}`:"",d.medicamentos?`Medicamentos: ${d.medicamentos}`:"",d.tratamentos?`Tratamentos anteriores: ${d.tratamentos}`:"",d.objetivo?`Objetivo: ${d.objetivo}`:"",`Preferência: ${d.dias.join(", ")}${d.turno?" · "+d.turno:""}`,d.descricao?`Relato: ${d.descricao}`:"",d.observacoes?`Obs.: ${d.observacoes}`:""].filter((l,i)=>l!==""||i===1).join("\n");}
+function waMessage(d,saved){return[`Olá, Keila! ${saved?"Acabei de reservar":"Quero agendar"} minha avaliação capilar (${brl(Number(config.valor)||100)}) pelo site.`,``,`Nome: ${d.nome}`,saved?`Horário: ${slotLabel(d.data,d.hora)}`:"Não consegui escolher o horário pelo site. Qual o melhor dia?",d.queixas.length?`Queixas: ${d.queixas.join(", ")}`:"",d.objetivo?`Objetivo: ${d.objetivo}`:"",saved?`Minhas respostas do pré-atendimento já foram enviadas.`:""].filter((l,i)=>l!==""||i===1).join("\n");}
 function waLink(n,text){const x=onlyDigits(n);const full=x&&x.length<=11?"55"+x:x;return(full?`https://wa.me/${full}`:`https://wa.me/`)+`?text=${encodeURIComponent(text)}`;}
-async function submit(){const btn=$("#nextBtn");btn.disabled=true;btn.textContent="Enviando…";const d=collect();
-  const rec=Object.assign({},d,{status:"novo",pago:false,valor:Number(config.valor)||100,createdAt:new Date().toISOString(),origem:"site",dataConsulta:"",horaConsulta:"",notas:""});
-  if(db){try{await db.collection("agendamentos").add(rec);}catch(e){}}
-  $("#waBtn").href=waLink(config.whatsapp,waMessage(d));
-  $("#doneText").textContent=`Obrigada, ${d.nome.split(" ")[0]}! Agora é só me chamar no WhatsApp para confirmarmos o dia e o horário da sua avaliação.`;
+function gcalLink(d){const[H,M]=d.hora.split(":").map(Number),e=new Date(2000,0,1,H,M+(Number(config.duracao)||60)),day=d.data.replace(/-/g,"");
+  return`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent("Avaliação capilar · Keila Costa")}&dates=${day}T${d.hora.replace(":","")}00/${day}T${String(e.getHours()).padStart(2,"0")}${String(e.getMinutes()).padStart(2,"0")}00&ctz=America/Sao_Paulo&location=${encodeURIComponent(config.endereco||"Studio Keila Costa")}`;}
+async function submit(){
+  const btn=$("#nextBtn"),label=btn.textContent;btn.disabled=true;btn.textContent="Reservando…";const d=collect();let saved=false;
+  if(agendaOk){
+    try{await api("agendar",{data:d.data,hora:d.hora,respostas:d,site:val("site")});saved=true;}
+    catch(e){btn.disabled=false;btn.textContent=label;
+      if(e.status===409){calCache={};slot.hora="";show(steps.findIndex(s=>s.dataset.v==="slot"));setErr("e-slot",e.message);}
+      else setErr("e-ok",(e.message||"Não foi possível reservar.")+" Se continuar, chame no WhatsApp.");
+      return;}}
+  $("#waBtn").href=waLink(config.whatsapp,waMessage(d,saved));
+  $("#waBtn").textContent=saved?"Confirmar pelo WhatsApp":"Chamar no WhatsApp";
+  $("#doneBox h3").textContent=saved?"Horário reservado":"Pedido recebido";
+  $("#doneSlot").hidden=!saved;$("#doneSlot").textContent=saved?slotLabel(d.data,d.hora):"";
+  $("#gcalBtn").hidden=!saved;if(saved)$("#gcalBtn").href=gcalLink(d);
+  $("#doneText").textContent=saved?`Obrigada, ${d.nome.split(" ")[0]}! Suas respostas já chegaram para mim. Toque abaixo para confirmar pelo WhatsApp.`:`Obrigada, ${d.nome.split(" ")[0]}! Agora é só me chamar no WhatsApp para combinarmos o dia e o horário.`;
   if(config.pix){$("#pixBox").hidden=false;$("#pixBox").innerHTML=`Pagamento via Pix: <strong>${esc(config.pix)}</strong>. Envie o comprovante no WhatsApp.`;}
-  form.hidden=true;const dn=$("#doneBox");dn.hidden=false;requestAnimationFrame(()=>dn.classList.add("show"));btn.disabled=false;
+  form.hidden=true;const dn=$("#doneBox");dn.hidden=false;requestAnimationFrame(()=>dn.classList.add("show"));btn.disabled=false;btn.textContent=label;
   $("#doneBox h3").setAttribute("tabindex","-1");$("#doneBox h3").focus();}
-$("#againBtn").addEventListener("click",()=>{form.reset();$("#padraoOpts").dataset.sx="";form.hidden=false;const dn=$("#doneBox");dn.hidden=true;dn.classList.remove("show");moved=false;show(0);});
+$("#againBtn").addEventListener("click",()=>{form.reset();slot={data:"",hora:""};calCache={};calM=null;$("#padraoOpts").dataset.sx="";form.hidden=false;const dn=$("#doneBox");dn.hidden=true;dn.classList.remove("show");moved=false;show(0);});
 show(0);
 
 /* ===== Routing ===== */
-function route(){const adm=location.hash==="#admin";$("#site").hidden=adm;$("#admin").hidden=!adm;if(adm){renderAdmin();scrollTo(0,0);}}
+let poll=0;
+function route(){const adm=location.hash==="#admin";$("#site").hidden=adm;$("#admin").hidden=!adm;clearInterval(poll);if(adm){scrollTo(0,0);enterAdmin();}}
 addEventListener("hashchange",route);
 $("#teamLink").addEventListener("click",()=>{location.hash="#admin";});
 $("#toSite").addEventListener("click",e=>{e.preventDefault();history.pushState("",document.title,location.pathname+location.search);route();scrollTo(0,0);});
 
 /* ===== Admin ===== */
-let tab="ag",filter="todos",query="";
+let tab="ag",filter="todos",query="",admCfg=null;
 const STATUS={novo:"Novo",confirmado:"Confirmado",realizado:"Realizado",cancelado:"Cancelado"};
+const DOW=["Domingo","Segunda","Terça","Quarta","Quinta","Sexta","Sábado"];
+function toBooking(r){return Object.assign({},r.respostas,{id:String(r.id),nome:r.nome,whatsapp:r.whatsapp,status:r.status,pago:r.pago,valor:r.valor,createdAt:r.criado,origem:r.origem,dataConsulta:r.data||"",horaConsulta:r.hora||"",notas:r.notas||""});}
+async function loadBookings(){try{bookings=(await api("lista")).itens.map(toBooking);}catch(e){if(e.status===401)isAdmin=false;else toast(e.message);}}
+async function enterAdmin(){
+  $("#admTabs").hidden=!isAdmin;$("#admOut").hidden=!isAdmin;
+  if(isAdmin)await loadBookings();
+  renderAdmin();
+  clearInterval(poll);
+  if(isAdmin)poll=setInterval(async()=>{if(location.hash!=="#admin"||!$("#sheet").hidden||tab==="cfg")return;await loadBookings();if(document.activeElement&&document.activeElement.id==="q")return;renderAdmin();},60000);}
 $$(".adm-tabs button").forEach(b=>b.addEventListener("click",()=>{tab=b.dataset.tab;$$(".adm-tabs button").forEach(x=>x.setAttribute("aria-selected",String(x===b)));renderAdmin();}));
+$("#admOut").addEventListener("click",async()=>{try{await api("sair",{});}catch(e){}isAdmin=false;bookings=[];enterAdmin();});
 function dateBR(iso){if(!iso)return"";const d=new Date(iso);return d.toLocaleDateString("pt-BR",{day:"2-digit",month:"short"})+" "+d.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});}
-function consultaBR(b){if(!b.dataConsulta)return"";const[y,m,dd]=b.dataConsulta.split("-");return`${dd}/${m}${b.horaConsulta?" às "+b.horaConsulta:""}`;}
+function consultaBR(b){if(!b.dataConsulta)return"";const[y,m,dd]=b.dataConsulta.split("-");return`${dd}/${m}${b.horaConsulta?" às "+fmtH(b.horaConsulta):""}`;}
+function renderLogin(body){
+  $("#admTabs").hidden=true;$("#admOut").hidden=true;
+  body.innerHTML=`<div class="gate"><h2>Área da equipe</h2><p>Entre com a senha do painel para ver os agendamentos e as respostas do pré-atendimento.</p>
+    <form class="login" id="loginF"><input type="password" id="lg-pw" autocomplete="current-password" placeholder="Senha do painel" aria-label="Senha do painel"><button class="btn" type="submit">Entrar</button></form>
+    <div class="err" id="lg-err"></div><a class="back" href="#top" id="gateBack">Voltar ao site</a></div>`;
+  $("#gateBack").addEventListener("click",e=>{e.preventDefault();$("#toSite").click();});
+  $("#lg-pw").focus();
+  $("#loginF").addEventListener("submit",async e=>{e.preventDefault();const b=e.target.querySelector("button");b.disabled=true;
+    try{await api("entrar",{senha:$("#lg-pw").value});isAdmin=true;await enterAdmin();}
+    catch(err){$("#lg-err").textContent=err.status===0?"Sem conexão com o servidor. O painel só funciona no site publicado.":err.message;b.disabled=false;}});}
 function renderAdmin(){
   const body=$("#admBody");
-  if(!isAdmin){body.innerHTML=`<div class="gate"><h2>Área restrita</h2><p>Este painel é só para a equipe do Studio Keila Costa. Entre com a conta que publicou o site para ver os agendamentos.</p><a class="btn" href="#top" id="gateBack">Voltar ao site</a></div>`;$("#gateBack").addEventListener("click",e=>{e.preventDefault();$("#toSite").click();});return;}
+  if(!isAdmin)return renderLogin(body);
   if(tab==="cfg")return renderConfig(body);
-  const ym=new Date().toISOString().slice(0,7);
+  if(tab==="agenda")return renderAgenda(body);
+  const today=iso(new Date()),wk=iso(new Date(Date.now()+7*864e5));
   const novos=bookings.filter(b=>b.status==="novo").length,conf=bookings.filter(b=>b.status==="confirmado").length;
-  const realMes=bookings.filter(b=>b.status==="realizado"&&(b.dataConsulta||b.createdAt||"").slice(0,7)===ym).length;
+  const semana=bookings.filter(b=>b.status!=="cancelado"&&b.dataConsulta>=today&&b.dataConsulta<=wk).length;
   const receita=bookings.filter(b=>b.pago).reduce((s,b)=>s+(Number(b.valor)||0),0);
   const qq=query.toLowerCase();
   const list=bookings.filter(b=>filter==="todos"||b.status===filter).filter(b=>!qq||(b.nome||"").toLowerCase().includes(qq)||onlyDigits(b.whatsapp).includes(onlyDigits(qq)||"§"));
   body.innerHTML=`
     <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:14px;flex-wrap:wrap"><h2>Agendamentos</h2><button class="btn small" id="newBtn" type="button">Novo agendamento</button></div>
     <div class="stats">
-      <div class="stat hl"><div class="v">${novos}</div><div class="l">Novos pedidos</div></div>
+      <div class="stat hl"><div class="v">${novos}</div><div class="l">Novos, a confirmar</div></div>
       <div class="stat"><div class="v">${conf}</div><div class="l">Confirmados</div></div>
-      <div class="stat"><div class="v">${realMes}</div><div class="l">Realizados no mês</div></div>
+      <div class="stat"><div class="v">${semana}</div><div class="l">Nos próximos 7 dias</div></div>
       <div class="stat"><div class="v">${brl(receita)}</div><div class="l">Recebido (pagos)</div></div>
     </div>
     <div class="toolbar">
@@ -1247,26 +1532,36 @@ function renderAdmin(){
     </div>
     <div class="list">${list.length?list.map(b=>`
       <button class="item" data-id="${esc(b.id)}" type="button">
-        <div><div class="nm">${esc(b.nome||"Sem nome")}</div><div class="sub">${esc(b.whatsapp||"")}</div></div>
+        <div><div class="nm">${esc(b.nome||"Sem nome")}${healthFlags(b).length?' <span class="flag" title="Tem alertas de saúde">!</span>':""}</div><div class="sub">${esc(b.whatsapp||"")}</div></div>
         <div class="c2"><div class="sub">${esc((b.queixas||[]).slice(0,2).join(", ")||"—")}</div></div>
-        <div class="c3"><div class="sub">${b.dataConsulta?"Consulta "+esc(consultaBR(b)):esc((b.dias||[]).join(", ")+(b.turno?" · "+b.turno.split(" ")[0]:""))}</div><div class="sub">Recebido ${esc(dateBR(b.createdAt))}</div></div>
+        <div class="c3"><div class="sub">${b.dataConsulta?"Consulta "+esc(consultaBR(b)):"Sem horário definido"}</div><div class="sub">Recebido ${esc(dateBR(b.createdAt))}</div></div>
         <div><span class="pill st-${esc(b.status)}">${STATUS[b.status]||esc(b.status)}</span>${b.pago?'<span class="paid">Pago</span>':""}</div>
-      </button>`).join(""):`<div class="empty"><h3>${bookings.length?"Nada neste filtro":"Nenhum agendamento ainda"}</h3><p>${bookings.length?"Mude o filtro ou a busca para ver outros pedidos.":"Os pedidos do formulário aparecem aqui. Registre também quem agendou pelo WhatsApp em “Novo agendamento”."}</p></div>`}</div>`;
+      </button>`).join(""):`<div class="empty"><h3>${bookings.length?"Nada neste filtro":"Nenhum agendamento ainda"}</h3><p>${bookings.length?"Mude o filtro ou a busca para ver outros pedidos.":"Os agendamentos feitos pelo site aparecem aqui, com todas as respostas. Registre também quem marcou pelo WhatsApp em “Novo agendamento”."}</p></div>`}</div>`;
   $$('input[name="flt"]',body).forEach(r=>r.addEventListener("change",e=>{filter=e.target.value;renderAdmin();}));
   const qi=$("#q");qi.addEventListener("input",e=>{query=e.target.value;const p=qi.selectionStart;renderAdmin();const n=$("#q");n.focus();n.setSelectionRange(p,p);});
   $$(".item",body).forEach(it=>it.addEventListener("click",()=>openDetail(it.dataset.id)));
-  $("#newBtn").addEventListener("click",openNew);
-}
+  $("#newBtn").addEventListener("click",openNew);}
+function renderAgenda(body){
+  const today=iso(new Date()),days={};
+  bookings.filter(b=>b.status!=="cancelado"&&b.dataConsulta&&b.dataConsulta>=today).forEach(b=>(days[b.dataConsulta]=days[b.dataConsulta]||[]).push(b));
+  const keys=Object.keys(days).sort();
+  body.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:flex-end;gap:14px;flex-wrap:wrap"><h2>Próximas consultas</h2><button class="btn small" id="newBtn" type="button">Novo agendamento</button></div>
+    <div class="agenda">${keys.length?keys.map(k=>`<section class="ag-day"><h3>${k===today?"Hoje · ":""}${esc(dayLabel(k))}</h3>${days[k].sort((a,b)=>a.horaConsulta.localeCompare(b.horaConsulta)).map(b=>`
+      <button class="ag-item" type="button" data-id="${esc(b.id)}"><span class="t">${esc(fmtH(b.horaConsulta)||"—")}</span><span class="n">${esc(b.nome)}${healthFlags(b).length?' <span class="flag">!</span>':""}<small>${esc((b.queixas||[]).slice(0,2).join(", "))}</small></span><span class="pill st-${esc(b.status)}">${STATUS[b.status]||""}</span></button>`).join("")}</section>`).join(""):`<div class="empty"><h3>Nenhuma consulta marcada</h3><p>Quando alguém reservar pelo site, aparece aqui por dia.</p></div>`}</div>`;
+  $$(".ag-item",body).forEach(it=>it.addEventListener("click",()=>openDetail(it.dataset.id)));
+  $("#newBtn").addEventListener("click",openNew);}
 function openSheet(html){$("#panel").innerHTML=html;$("#sheet").hidden=false;document.body.style.overflow="hidden";const f=$("#panel .x");if(f)f.focus();}
 function closeSheet(){$("#sheet").hidden=true;document.body.style.overflow="";if(location.hash==="#admin")renderAdmin();}
 $("#sheet").addEventListener("click",e=>{if(e.target.id==="sheet")closeSheet();});
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("#sheet").hidden)closeSheet();});
 function openDetail(id){
   const b=bookings.find(x=>x.id===id);if(!b)return;
-  const rows=LABELS.filter(([k])=>fmt(b[k])).map(([k,l])=>`<div><dt>${esc(l)}</dt><dd>${esc(fmt(b[k]))}</dd></div>`).join("");
-  const msg=`Olá, ${(b.nome||"").split(" ")[0]}! Aqui é a Keila Costa. Recebi seu pedido de avaliação capilar.`+(b.dataConsulta?` Sua avaliação está marcada para ${consultaBR(b)}.`:` Vamos combinar o melhor dia e horário?`)+(config.pix&&!b.pago?` O valor é ${brl(b.valor||config.valor)}, Pix: ${config.pix}.`:"");
+  const groups=GROUPS.map(([g,ls])=>{const r=ls.filter(([k])=>fmt(b[k])).map(([k,l])=>`<div><dt>${esc(l)}</dt><dd>${esc(fmt(b[k]))}</dd></div>`).join("");return r?`<h5>${g}</h5><dl class="kv">${r}</dl>`:"";}).join("");
+  const flags=healthFlags(b);
+  const msg=`Olá, ${(b.nome||"").split(" ")[0]}! Aqui é a Keila Costa. Recebi seu agendamento de avaliação capilar.`+(b.dataConsulta?` Confirmo sua avaliação ${dayLabel(b.dataConsulta).toLowerCase()}${b.horaConsulta?", às "+fmtH(b.horaConsulta):""}.`:` Vamos combinar o melhor dia e horário?`)+(config.pix&&!b.pago?` O valor é ${brl(b.valor||config.valor)}, Pix: ${config.pix}.`:"");
   openSheet(`
     <div class="panel-head"><div><h3 id="pTitle">${esc(b.nome||"Sem nome")}</h3><div class="hint">Recebido ${esc(dateBR(b.createdAt))} · ${b.origem==="manual"?"registrado no painel":"pelo site"}</div></div><button class="x" type="button" aria-label="Fechar">×</button></div>
+    ${flags.length?`<div class="alert"><b>Atenção antes da consulta</b><ul>${flags.map(([t,x])=>`<li><b>${esc(t)}:</b> ${esc(x)}</li>`).join("")}</ul></div>`:""}
     <h4>Agendamento</h4>
     <div class="row2">
       <div class="field"><label for="d-status">Status</label><select id="d-status">${Object.entries(STATUS).map(([k,l])=>`<option value="${k}" ${b.status===k?"selected":""}>${l}</option>`).join("")}</select></div>
@@ -1274,68 +1569,87 @@ function openDetail(id){
     </div>
     <div class="row2">
       <div class="field"><label for="d-data">Data da consulta</label><input type="date" id="d-data" value="${esc(b.dataConsulta||"")}"></div>
-      <div class="field"><label for="d-hora">Horário</label><input type="time" id="d-hora" min="09:00" max="19:00" value="${esc(b.horaConsulta||"")}"></div>
+      <div class="field"><label for="d-hora">Horário</label><input type="time" id="d-hora" step="900" value="${esc(b.horaConsulta||"")}"></div>
     </div>
     <label class="check" style="margin-bottom:16px"><input type="checkbox" id="d-pago" ${b.pago?"checked":""}><span>Pagamento recebido</span></label>
     <div class="field"><label for="d-notas">Notas internas</label><textarea id="d-notas" placeholder="Visíveis só no painel">${esc(b.notas||"")}</textarea></div>
+    <div class="err" id="d-err"></div>
     <div class="actions"><button class="btn" type="button" id="d-save">Salvar alterações</button><a class="btn ghost" target="_blank" rel="noopener" href="${esc(waLink(b.whatsapp,msg))}">Chamar no WhatsApp</a></div>
     <h4 style="margin-top:28px">Respostas do pré-atendimento</h4>
-    <dl class="kv">${rows||"<div><dd>Sem respostas registradas.</dd></div>"}</dl>
+    ${groups||'<p class="hint">Sem respostas registradas.</p>'}
     <button class="btn small danger" type="button" id="d-del">Excluir agendamento</button>`);
   $("#panel .x").addEventListener("click",closeSheet);
   $("#d-save").addEventListener("click",async e=>{e.target.disabled=true;
-    try{await db.doc("agendamentos/"+id).update({status:$("#d-status").value,valor:Number($("#d-valor").value)||0,dataConsulta:$("#d-data").value,horaConsulta:$("#d-hora").value,pago:$("#d-pago").checked,notas:$("#d-notas").value.trim(),updatedAt:new Date().toISOString()});toast("Alterações salvas");closeSheet();}
-    catch(err){toast("Não foi possível salvar. Tente de novo.");e.target.disabled=false;}});
+    try{await api("salvar",{id:Number(id),status:$("#d-status").value,valor:Number($("#d-valor").value)||0,data:$("#d-data").value,hora:$("#d-hora").value,pago:$("#d-pago").checked,notas:$("#d-notas").value.trim()});await loadBookings();toast("Alterações salvas");closeSheet();}
+    catch(err){$("#d-err").textContent=err.message;e.target.disabled=false;}});
   $("#d-del").addEventListener("click",async e=>{if(e.target.dataset.confirm!=="1"){e.target.dataset.confirm="1";e.target.textContent="Toque de novo para excluir";return;}
-    try{await db.doc("agendamentos/"+id).delete();toast("Agendamento excluído");closeSheet();}catch(err){toast("Não foi possível excluir.");}});
-}
+    try{await api("excluir",{id:Number(id)});await loadBookings();toast("Agendamento excluído");closeSheet();}catch(err){toast(err.message);}});}
 function openNew(){
   openSheet(`
     <div class="panel-head"><h3 id="pTitle">Novo agendamento</h3><button class="x" type="button" aria-label="Fechar">×</button></div>
-    <p class="hint" style="margin:0 0 18px">Para quem agendou pelo WhatsApp ou Direct.</p>
+    <p class="hint" style="margin:0 0 18px">Para quem marcou pelo WhatsApp ou Direct. O horário fica bloqueado na agenda do site.</p>
     <div class="field"><label for="n-nome">Nome *</label><input type="text" id="n-nome"></div>
-    <div class="field"><label for="n-whats">WhatsApp *</label><input type="tel" id="n-whats" inputmode="tel"></div>
+    <div class="field"><label for="n-whats">WhatsApp</label><input type="tel" id="n-whats" inputmode="tel"></div>
     <div class="field"><label for="n-queixa">Queixa principal</label><input type="text" id="n-queixa" placeholder="Ex.: queda excessiva"></div>
-    <div class="row2"><div class="field"><label for="n-data">Data</label><input type="date" id="n-data"></div><div class="field"><label for="n-hora">Horário</label><input type="time" id="n-hora" min="09:00" max="19:00"></div></div>
+    <div class="row2"><div class="field"><label for="n-data">Data</label><input type="date" id="n-data"></div><div class="field"><label for="n-hora">Horário</label><input type="time" id="n-hora" step="900"></div></div>
     <div class="field"><label for="n-notas">Notas</label><textarea id="n-notas"></textarea></div>
     <div class="err" id="n-err"></div>
     <div class="actions"><button class="btn" type="button" id="n-save">Registrar agendamento</button></div>`);
   $("#panel .x").addEventListener("click",closeSheet);
   $("#n-whats").addEventListener("input",e=>e.target.value=maskPhone(e.target.value));
-  $("#n-save").addEventListener("click",async e=>{const nome=$("#n-nome").value.trim(),wh=$("#n-whats").value.trim();
-    if(nome.length<2||onlyDigits(wh).length<10){$("#n-err").textContent="Preencha nome e WhatsApp com DDD.";return;}
-    e.target.disabled=true;const data=$("#n-data").value;
-    try{await db.collection("agendamentos").add({nome,whatsapp:wh,queixas:$("#n-queixa").value.trim()?[$("#n-queixa").value.trim()]:[],dias:[],dataConsulta:data,horaConsulta:$("#n-hora").value,notas:$("#n-notas").value.trim(),status:data?"confirmado":"novo",pago:false,valor:Number(config.valor)||100,createdAt:new Date().toISOString(),origem:"manual"});toast("Agendamento registrado");closeSheet();}
-    catch(err){$("#n-err").textContent="Não foi possível registrar. Tente de novo.";e.target.disabled=false;}});
-}
-function renderConfig(body){
-  body.innerHTML=`<div class="cfg"><h2>Ajustes do site</h2><div class="box">
-    <div class="field"><label for="c-whats">WhatsApp que recebe os pedidos</label><input type="tel" id="c-whats" inputmode="tel" value="${esc(config.whatsapp)}" placeholder="(00) 00000-0000"><div class="hint">Com DDD. A cliente é levada para este número ao terminar o formulário.</div></div>
-    <div class="field"><label for="c-valor">Valor da avaliação (R$)</label><input type="number" id="c-valor" min="0" step="1" value="${esc(config.valor)}"></div>
-    <div class="field"><label for="c-pix">Chave Pix</label><input type="text" id="c-pix" value="${esc(config.pix)}" placeholder="CPF, e-mail, telefone ou chave aleatória"><div class="hint">Aparece para a cliente depois do envio. Deixe em branco para combinar no atendimento.</div></div>
-    <div class="field"><label for="c-end">Endereço do studio</label><input type="text" id="c-end" value="${esc(config.endereco)}" placeholder="Rua, número, bairro, cidade"></div>
-    <div class="actions"><button class="btn" id="c-save" type="button">Salvar ajustes</button></div></div></div>`;
+  $("#n-save").addEventListener("click",async e=>{const nome=$("#n-nome").value.trim();
+    if(nome.length<2){$("#n-err").textContent="Preencha o nome.";return;}
+    e.target.disabled=true;
+    try{await api("novo",{nome,whatsapp:$("#n-whats").value.trim(),queixa:$("#n-queixa").value.trim(),data:$("#n-data").value,hora:$("#n-hora").value,notas:$("#n-notas").value.trim()});await loadBookings();toast("Agendamento registrado");closeSheet();}
+    catch(err){$("#n-err").textContent=err.message;e.target.disabled=false;}});}
+async function renderConfig(body){
+  if(!admCfg){body.innerHTML=`<div class="cfg"><h2>Ajustes</h2><p class="hint">Carregando…</p></div>`;try{admCfg=(await api("ajustes")).config;}catch(e){body.innerHTML=`<div class="cfg"><h2>Ajustes</h2><p class="err">${esc(e.message)}</p></div>`;return;}if(tab!=="cfg")return;}
+  const c=admCfg,g=c.agenda,bloq=[...g.bloqueios];
+  body.innerHTML=`<div class="cfg"><h2>Ajustes</h2>
+    <div class="box"><h4>Agenda do site</h4>
+      <div class="week">${[2,3,4,5,6,0,1].map(i=>{const d=g.dias[i];return`<div class="wd"><label class="check"><input type="checkbox" data-on="${i}" ${d.on?"checked":""}><span>${DOW[i]}</span></label><input type="time" data-ini="${i}" value="${esc(d.ini)}" aria-label="${DOW[i]}, início"><span class="to">às</span><input type="time" data-fim="${i}" value="${esc(d.fim)}" aria-label="${DOW[i]}, fim"></div>`;}).join("")}</div>
+      <div class="row2">
+        <div class="field"><label for="c-dur">Duração de cada consulta</label><select id="c-dur">${[30,45,60,90,120].map(m=>`<option value="${m}" ${+g.duracao===m?"selected":""}>${m} minutos</option>`).join("")}</select></div>
+        <div class="field"><label>Pausa (almoço)</label><div class="pair"><input type="time" id="c-pi" value="${esc(g.pausaIni)}" aria-label="Início da pausa"><span class="to">às</span><input type="time" id="c-pf" value="${esc(g.pausaFim)}" aria-label="Fim da pausa"></div></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label for="c-ant">Antecedência mínima (horas)</label><input type="number" id="c-ant" min="0" max="168" value="${esc(g.antecedencia)}"><div class="hint">Ninguém consegue marcar em cima da hora.</div></div>
+        <div class="field"><label for="c-jan">Agenda aberta por (dias)</label><input type="number" id="c-jan" min="7" max="180" value="${esc(g.janela)}"></div>
+      </div>
+      <div class="field"><label for="c-bq">Folgas e dias bloqueados</label><div class="pair"><input type="date" id="c-bq"><button class="btn small ghost" type="button" id="c-bqadd">Bloquear dia</button></div><div class="bloqs" id="bloqs"></div></div>
+    </div>
+    <div class="box"><h4>Contato e pagamento</h4>
+      <div class="field"><label for="c-whats">WhatsApp que recebe os pedidos</label><input type="tel" id="c-whats" inputmode="tel" value="${esc(c.whatsapp)}" placeholder="(00) 00000-0000"><div class="hint">Com DDD. A cliente é levada para este número depois de reservar.</div></div>
+      <div class="field"><label for="c-valor">Valor da avaliação (R$)</label><input type="number" id="c-valor" min="0" step="1" value="${esc(c.valor)}"></div>
+      <div class="field"><label for="c-pix">Chave Pix</label><input type="text" id="c-pix" value="${esc(c.pix)}" placeholder="CPF, e-mail, telefone ou chave aleatória"><div class="hint">Aparece para a cliente depois da reserva. Deixe em branco para combinar no atendimento.</div></div>
+      <div class="field"><label for="c-end">Endereço do studio</label><input type="text" id="c-end" value="${esc(c.endereco)}" placeholder="Rua, número, bairro, cidade"></div>
+    </div>
+    <div class="err" id="c-err"></div>
+    <div class="actions"><button class="btn" id="c-save" type="button">Salvar ajustes</button></div>
+    <div class="box" style="margin-top:28px"><h4>Senha do painel</h4>
+      <div class="row2"><div class="field"><label for="s-cur">Senha atual</label><input type="password" id="s-cur" autocomplete="current-password"></div><div class="field"><label for="s-new">Nova senha</label><input type="password" id="s-new" autocomplete="new-password" placeholder="Mínimo 8 caracteres"></div></div>
+      <div class="err" id="s-err"></div><button class="btn small ghost" type="button" id="s-save">Trocar senha</button>
+    </div></div>`;
+  const drawB=()=>{$("#bloqs").innerHTML=bloq.length?bloq.map(d=>`<span class="bq">${esc(d.split("-").reverse().join("/"))}<button type="button" data-d="${d}" aria-label="Desbloquear ${esc(d)}">×</button></span>`).join(""):`<span class="hint">Nenhum dia bloqueado.</span>`;};drawB();
+  $("#c-bqadd").addEventListener("click",()=>{const v=$("#c-bq").value;if(v&&!bloq.includes(v)){bloq.push(v);bloq.sort();drawB();}});
+  $("#bloqs").addEventListener("click",e=>{const b=e.target.closest("button[data-d]");if(!b)return;bloq.splice(bloq.indexOf(b.dataset.d),1);drawB();});
   $("#c-whats").addEventListener("input",e=>e.target.value=maskPhone(e.target.value));
-  $("#c-save").addEventListener("click",async e=>{e.target.disabled=true;const next={whatsapp:$("#c-whats").value.trim(),valor:Number($("#c-valor").value)||0,pix:$("#c-pix").value.trim(),endereco:$("#c-end").value.trim()};
-    try{await db.doc("config/site").set(next);config=next;applyConfig();toast("Ajustes salvos");}catch(err){toast("Não foi possível salvar os ajustes.");}e.target.disabled=false;});
-}
+  $("#c-save").addEventListener("click",async e=>{e.target.disabled=true;$("#c-err").textContent="";
+    const dias={};for(let i=0;i<7;i++)dias[i]={on:$(`[data-on="${i}"]`).checked,ini:$(`[data-ini="${i}"]`).value,fim:$(`[data-fim="${i}"]`).value};
+    const next={whatsapp:$("#c-whats").value.trim(),valor:Number($("#c-valor").value)||0,pix:$("#c-pix").value.trim(),endereco:$("#c-end").value.trim(),
+      agenda:{dias,duracao:Number($("#c-dur").value),pausaIni:$("#c-pi").value,pausaFim:$("#c-pf").value,antecedencia:Number($("#c-ant").value),janela:Number($("#c-jan").value),bloqueios:bloq}};
+    try{admCfg=(await api("ajustes",next)).config;Object.assign(config,{whatsapp:admCfg.whatsapp,valor:admCfg.valor,pix:admCfg.pix,endereco:admCfg.endereco,duracao:admCfg.agenda.duracao});applyConfig();calCache={};toast("Ajustes salvos");}
+    catch(err){$("#c-err").textContent=err.message;}e.target.disabled=false;});
+  $("#s-save").addEventListener("click",async e=>{e.target.disabled=true;$("#s-err").textContent="";
+    try{await api("senha",{atual:$("#s-cur").value,nova:$("#s-new").value});$("#s-cur").value=$("#s-new").value="";toast("Senha alterada");}
+    catch(err){$("#s-err").textContent=err.message;}e.target.disabled=false;});}
 
 /* ===== Runtime ===== */
 route();onScroll();lightQuote();
 (async function(){
-  if(!window.claude||typeof window.claude.use!=="function")return;
-  try{db=await window.claude.use("db");}catch(e){db=null;}
-  try{user=await window.claude.use("user");}catch(e){user=null;}
-  if(db){try{db.doc("config/site").onSnapshot(s=>{if(s.exists){config=Object.assign({whatsapp:"",valor:100,pix:"",endereco:""},s.data());applyConfig();}},()=>{});}catch(e){}}
-  try{isAdmin=!!(user&&await user.canEdit());}catch(e){isAdmin=false;}
-  if(isAdmin&&db){
-    $("#teamLink").hidden=false;
-    db.collection("agendamentos").orderBy("createdAt","desc").onSnapshot(snap=>{
-      bookings=snap.docs.map(d=>Object.assign({id:d.id},d.data()));
-      if(location.hash==="#admin"&&$("#sheet").hidden)renderAdmin();
-    },()=>toast("A lista parou de atualizar. Recarregue a página."));
-  }
-  if(location.hash==="#admin")renderAdmin();
+  try{const r=await api("config");Object.assign(config,r.config);applyConfig();}catch(e){}
+  try{isAdmin=!!(await api("eu")).admin;}catch(e){isAdmin=false;}
+  if(location.hash==="#admin")enterAdmin();
 })();
 })();
 </script>
