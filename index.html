@@ -229,13 +229,16 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
 .field{margin-bottom:20px}
 .field > label,.field > .lbl{display:block;font-weight:400;font-size:.95rem;margin-bottom:9px;color:#E6DFCF}
 .req{color:var(--gold)}
-.booking{position:fixed;inset:0;z-index:80;overflow-y:auto;overscroll-behavior:contain;padding:0 0 60px}
+.booking{position:fixed;inset:0;z-index:80;overflow-y:auto;overscroll-behavior:contain;display:flex;flex-direction:column}
 .booking[hidden]{display:none}
-.booking .bk{max-width:720px;margin:0 auto}
+.booking .bk{max-width:720px;width:100%;margin:auto;padding-top:24px;padding-bottom:48px}
+.card-x{position:absolute;top:16px;right:16px;z-index:3;width:38px;height:38px;border-radius:50%;border:1px solid rgba(227,205,156,.28);background:rgba(18,22,15,.4);color:var(--linen);font-size:1.35rem;line-height:1;cursor:pointer;transition:border-color .2s,background .2s}
+.card-x:hover{border-color:var(--gold);background:rgba(196,162,103,.12)}
+#bookForm .qhead,#bookForm .fs>h3:first-child{padding-right:44px}
 .booking:not([hidden]) .card{animation:qmIn .55s var(--ease)}
 @keyframes qmIn{from{opacity:0;transform:translateY(18px)}}
 html.qm-open{overflow:hidden}
-.qm-bar{position:sticky;top:0;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 20px;padding-top:calc(12px + env(safe-area-inset-top,0px));background:rgba(18,22,15,.82);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(227,205,156,.12);margin-bottom:28px}
+.qm-bar{position:sticky;top:0;z-index:4;flex:none;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 20px;padding-top:calc(12px + env(safe-area-inset-top,0px));background:rgba(18,22,15,.82);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(227,205,156,.12)}
 .qm-brand{display:flex;align-items:center;gap:10px;color:var(--linen);font-family:var(--serif);font-size:1.2rem}
 .qm-brand svg{width:40px;height:26px;color:var(--gold)}
 .qm-actions{display:flex;align-items:center;gap:14px}
@@ -243,7 +246,7 @@ html.qm-open{overflow:hidden}
 .qm-wa:hover{text-decoration:underline;text-underline-offset:4px}
 .qm-x{width:42px;height:42px;border-radius:50%;border:1px solid rgba(227,205,156,.3);background:transparent;color:var(--linen);font-size:1.5rem;line-height:1;cursor:pointer}
 .qm-x:hover{border-color:var(--gold)}
-@media (max-width:520px){.qm-wa span,.qm-brand span{display:none}.qm-bar{margin-bottom:16px}.booking .wrap{padding:0 12px}}
+@media (max-width:520px){.qm-wa span,.qm-brand span{display:none}.qm-x{display:none}.qm-bar{min-height:54px}.booking .bk{padding-top:14px}.booking .wrap{padding:0 12px}}
 .booking input[type=text],.booking input[type=tel],.booking input[type=number],.booking textarea{
   width:100%;padding:14px 16px;border:1px solid rgba(227,205,156,.22);border-radius:14px;background:rgba(18,22,15,.5);color:var(--linen);font-size:16px;transition:border-color .3s,box-shadow .3s}
 .booking textarea{min-height:96px;resize:vertical}
@@ -655,6 +658,7 @@ footer a{color:var(--gold-2)}
     </div>
     <div class="wrap bk">
       <div class="card" id="formCard">
+        <button type="button" class="card-x" id="cardClose" aria-label="Fechar e voltar ao site">×</button>
         <form id="bookForm" novalidate>
           <div class="qhead" id="qHead" hidden>
             <ol class="rail3" id="rail3" aria-hidden="true"><li data-s="1"><span>Seu cabelo</span></li><li data-s="2"><span>Sua saúde</span></li><li data-s="3"><span>Agendamento</span></li></ol>
@@ -1447,7 +1451,7 @@ function show(i){
   $$("#rail3 li").forEach(li=>{const s=+li.dataset.s;li.classList.toggle("on",s===stage);li.classList.toggle("done",s<stage);});
   $("#qBar").style.width=(pos/qs.length*100)+"%";
   $("#stepLine").textContent=intro?"":`Pergunta ${pos} de ${qs.length}`;
-  $("#prevBtn").hidden=i===0;
+  $("#prevBtn").hidden=false;$("#prevBtn").textContent=i===0?"Voltar ao site":"Voltar";
   const last=!steps.slice(i+1).some(active);
   $("#nextBtn").textContent=i===0?"Começar":last?(agendaOk?"Confirmar agendamento":"Enviar pedido"):"Continuar";
   if(st.dataset.v==="padrao")renderPadrao();
@@ -1456,7 +1460,7 @@ function show(i){
   if(moved){const h=st.querySelector("h3");h.setAttribute("tabindex","-1");h.focus({preventScroll:true});const r=$("#formCard").getBoundingClientRect();if(r.top<0||r.top>innerHeight*.6)$("#formCard").scrollIntoView({block:"start",behavior:reduced?"auto":"smooth"});}
   moved=true;}
 async function next(){if(!validate(cs))return;for(let j=cs+1;j<steps.length;j++)if(active(steps[j]))return show(j);await submit();}
-$("#prevBtn").addEventListener("click",()=>{for(let j=cs-1;j>=0;j--)if(active(steps[j]))return show(j);});
+$("#prevBtn").addEventListener("click",()=>{if(cs===0)return closeQuiz();for(let j=cs-1;j>=0;j--)if(active(steps[j]))return show(j);});
 $("#nextBtn").addEventListener("click",next);
 form.addEventListener("submit",e=>e.preventDefault());
 // one-tap answers advance on their own (pointer only, so keyboard users can still move between options)
@@ -1494,6 +1498,7 @@ function openQuiz(){if(!qm.hidden)return;qmBack=document.activeElement;qm.hidden
 function closeQuiz(){if(qm.hidden)return;qm.hidden=true;document.documentElement.classList.remove("qm-open");if(location.hash==="#agendar")history.replaceState("",document.title,location.pathname+location.search);if(qmBack&&qmBack.focus)qmBack.focus({preventScroll:true});}
 document.addEventListener("click",e=>{const a=e.target.closest('a[href="#agendar"]');if(!a)return;e.preventDefault();openQuiz();});
 $("#qmClose").addEventListener("click",closeQuiz);
+$("#cardClose").addEventListener("click",closeQuiz);
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!qm.hidden&&$("#sheet").hidden)closeQuiz();});
 if(location.hash==="#agendar")openQuiz();
 
