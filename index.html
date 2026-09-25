@@ -153,7 +153,13 @@ section{position:relative}
 input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:2px;background:linear-gradient(90deg,var(--gold) var(--p,0%),rgba(227,205,156,.2) var(--p,0%));border-radius:2px;outline:none}
 input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--night);border:2px solid var(--gold-2);cursor:pointer;box-shadow:0 0 0 6px rgba(196,162,103,.15)}
 input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--night);border:2px solid var(--gold-2);cursor:pointer}
-.scope-notes{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:40px}
+.conds{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 22px}
+.cond{font:inherit;font-size:.9rem;color:#D8D2BE;background:transparent;border:1px solid rgba(196,162,103,.32);padding:9px 18px;border-radius:999px;cursor:pointer;transition:background .3s,color .3s,border-color .3s}
+.cond:hover{border-color:var(--gold-2)}
+.cond[aria-pressed=true]{background:var(--gold);border-color:var(--gold);color:var(--night)}
+.scope-ctrl{transition:opacity .3s}.scope-ctrl.off{opacity:.35}
+.scope-notes{transition:opacity .22s;display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:40px}
+.scope-notes.swap{opacity:0}
 .scope-notes div{border-top:1px solid rgba(196,162,103,.25);padding-top:16px;color:#BDBBA6;font-size:.95rem}
 .scope-notes b{display:block;font-family:var(--serif);font-weight:400;font-size:1.5rem;color:var(--linen);margin-bottom:6px}
 @media (max-width:760px){.scope-notes{grid-template-columns:1fr;gap:18px}}
@@ -430,21 +436,29 @@ footer a{color:var(--gold-2)}
           <div class="eyebrow rv">Tricoscopia</div>
           <h2 class="h2" id="lt"><span class="mask rv"><span>O que o espelho</span></span><span class="mask rv d1"><span><i>não mostra.</i></span></span></h2>
         </div>
-        <p class="rv d2">Passe a lente sobre o couro cabeludo e mova o controle. Na avaliação, a imagem ampliada revela sinais de rarefação muito antes de você notar falhas no espelho.</p>
+        <p class="rv d2">Escolha uma condição e passe a lente sobre o couro cabeludo. Na avaliação, a imagem ampliada revela caspa, oleosidade, inflamações e sinais de queda muito antes de você notar no espelho.</p>
+      </div>
+      <div class="conds rv" id="conds" role="group" aria-label="Condição do couro cabeludo">
+        <button type="button" class="cond" data-c="saudavel" aria-pressed="true">Saudável</button>
+        <button type="button" class="cond" data-c="caspa" aria-pressed="false">Caspa</button>
+        <button type="button" class="cond" data-c="oleo" aria-pressed="false">Oleosidade</button>
+        <button type="button" class="cond" data-c="foliculite" aria-pressed="false">Foliculite</button>
+        <button type="button" class="cond" data-c="rarefacao" aria-pressed="false">Rarefação</button>
+        <button type="button" class="cond" data-c="areata" aria-pressed="false">Alopecia areata</button>
       </div>
       <div class="scope rv" id="scopeBox">
         <canvas id="scope" aria-label="Ilustração interativa de couro cabeludo ampliado"></canvas>
         <div class="hud" id="hud">Ilustração · couro cabeludo saudável</div>
       </div>
-      <div class="scope-ctrl">
-        <span>Saudável</span>
-        <input type="range" id="density" min="0" max="100" value="0" aria-label="Grau de rarefação da ilustração">
-        <span>Rarefação</span>
+      <div class="scope-ctrl off" id="scopeCtrl">
+        <span>Leve</span>
+        <input type="range" id="density" min="0" max="100" value="65" disabled aria-label="Intensidade da condição na ilustração">
+        <span>Intenso</span>
       </div>
-      <div class="scope-notes">
-        <div class="rv"><b>Fios de espessuras diferentes</b>Quando fios grossos e finos se misturam, é sinal de miniaturização do folículo.</div>
-        <div class="rv d1"><b>Folículos com um só fio</b>Unidades que tinham dois ou três fios passam a ter apenas um.</div>
-        <div class="rv d2"><b>Couro cabeludo aparente</b>A distância entre os fios aumenta e a densidade cai no topo e na risca.</div>
+      <div class="scope-notes" id="scopeNotes">
+        <div class="rv"><b>Unidades com 2 a 3 fios</b>Cada folículo produz mais de um fio, e a densidade é uniforme em todo o couro cabeludo.</div>
+        <div class="rv d1"><b>Espessura regular</b>Os fios têm calibre parecido, sem mistura de grossos e finos.</div>
+        <div class="rv d2"><b>Pele limpa e clara</b>Sem descamação, vermelhidão ou excesso de oleosidade entre os fios.</div>
       </div>
     </div>
   </section>
@@ -722,7 +736,7 @@ const cur=$("#cursor");
 let cx=0,cy=0,tx=0,ty=0;
 if(fine&&!reduced){
   addEventListener("pointermove",e=>{tx=e.clientX;ty=e.clientY;});
-  document.addEventListener("pointerover",e=>{cur.classList.toggle("big",!!e.target.closest("a,button,.chip,summary,input[type=range]"));});
+  document.addEventListener("pointerover",e=>{cur.classList.toggle("big",!!e.target.closest("a,button,.chip,.cond,summary,input[type=range]"));});
   (function loop(){cx+=(tx-cx)*.18;cy+=(ty-cy)*.18;cur.style.transform=`translate(${cx}px,${cy}px)`;requestAnimationFrame(loop);})();
 } else if(cur){cur.remove();}
 
@@ -806,53 +820,114 @@ function updateTimeline(){
 
 /* ===== Tricoscopy lens ===== */
 (function(){
-  const box=$("#scopeBox"),cv=$("#scope"),ctx=cv.getContext("2d"),range=$("#density"),hud=$("#hud");
-  const Z=2.6; let W,H,dpr,hi,hctx,units=[],lx=0,ly=0,tlx=0,tly=0,raf=0,touched=false,hover=false;
+  const box=$("#scopeBox"),cv=$("#scope"),ctx=cv.getContext("2d"),range=$("#density"),hud=$("#hud"),notes=$("#scopeNotes"),ctrl=$("#scopeCtrl");
+  const chips=[...document.querySelectorAll("#conds .cond")];
+  const ORDER=["saudavel","caspa","oleo","foliculite","rarefacao","areata"];
+  const INFO={
+    saudavel:{hud:"couro cabeludo saudável",n:[["Unidades com 2 a 3 fios","Cada folículo produz mais de um fio, e a densidade é uniforme em todo o couro cabeludo."],["Espessura regular","Os fios têm calibre parecido, sem mistura de grossos e finos."],["Pele limpa e clara","Sem descamação, vermelhidão ou excesso de oleosidade entre os fios."]]},
+    caspa:{hud:"caspa · descamação",n:[["Escamas brancas soltas","Pequenas lâminas secas se desprendem da pele e ficam presas entre os fios."],["Acúmulo na saída do fio","As escamas se concentram ao redor do folículo e podem abafá-lo."],["Coceira e vermelhidão","Sinais de pele sensibilizada, comuns na dermatite seborreica."]]},
+    oleo:{hud:"oleosidade excessiva",n:[["Brilho gorduroso","O excesso de sebo deixa a pele espelhada, com aspecto úmido."],["Fios agrupados","A oleosidade cola os fios em mechas logo na raiz."],["Escamas amareladas","Descamação gordurosa que adere à pele, diferente da caspa seca."]]},
+    foliculite:{hud:"foliculite · inflamação",n:[["Pontos avermelhados","Pápulas inflamadas surgem exatamente na saída do folículo."],["Pústulas","Bolinhas com centro amarelado indicam inflamação ativa, às vezes com infecção."],["Fios quebrados","A inflamação fragiliza o fio, que se rompe perto da raiz. Quadros extensos pedem avaliação médica."]]},
+    rarefacao:{hud:"rarefação · miniaturização",n:[["Fios de espessuras diferentes","Quando fios grossos e finos se misturam, é sinal de miniaturização do folículo."],["Folículos com um só fio","Unidades que tinham dois ou três fios passam a ter apenas um."],["Couro cabeludo aparente","A distância entre os fios aumenta e a densidade cai no topo e na risca."]]},
+    areata:{hud:"alopecia areata · falha",n:[["Área lisa, sem fios","Uma placa arredondada perde os fios de forma súbita, com a pele íntegra."],["Fios em ponto de exclamação","Fios curtos que afinam na base, típicos da fase ativa."],["Pontos amarelos e pretos","Orifícios vazios e fios quebrados rente à pele aparecem dentro da falha."]]}
+  };
+  const SKIN={saudavel:["#E8C7AA","#C99E80"],caspa:["#EBC4AE","#CB9A84"],oleo:["#E2BE8C","#BD9164"],foliculite:["#EBBEA8","#C88E7A"],rarefacao:["#E8C7AA","#C99E80"],areata:["#EAC9AE","#C99E80"]};
+  const Z=2.6; let W,H,dpr,hi,hctx,units=[],flecks=[],lx=0,ly=0,tlx=0,tly=0,raf=0,touched=false,cond="saudavel",picked=false,pend=false;
   function seedUnits(){
     // deterministic pseudo-random
     let s=7;const rnd=()=>{s=(s*16807)%2147483647;return s/2147483647;};
-    units=[];const area=W*H,n=Math.round(area/1400);
+    units=[];const n=Math.round(W*H/620);
     for(let i=0;i<n;i++){
-      units.push({x:rnd()*W,y:rnd()*H,count:1+Math.floor(rnd()*3),ang:-0.9+rnd()*0.5,len:18+rnd()*22,bend:(rnd()-.5)*10,r1:rnd(),r2:rnd(),r3:rnd(),spots:rnd()});
+      const x=rnd()*W,y=rnd()*H,r=rnd();
+      units.push({x,y,count:r<.15?1:r<.7?2:3,ang:-0.75+0.35*Math.sin(x/W*3.1+y/H*2.3)+(rnd()-.5)*.25,len:24+rnd()*26,bend:(rnd()-.5)*9,r1:rnd(),r2:rnd(),r3:rnd(),r4:rnd(),r5:rnd(),tone:rnd()});
     }
+    flecks=[];for(let i=0,m=Math.round(W*H/260);i<m;i++)flecks.push({x:rnd()*W,y:rnd()*H,s:rnd(),r:rnd(),a:rnd()*6.28,k:5+Math.floor(rnd()*4)});
   }
+  function flake(h,x,y,r,rot,k,fill,edge){
+    h.beginPath();
+    for(let i=0;i<k;i++){const j=Math.abs(Math.sin(i*12.99+rot*78.23))%1,a=rot+i/k*6.283,rr=r*(.55+j*.6);i?h.lineTo(x+Math.cos(a)*rr,y+Math.sin(a)*rr*.8):h.moveTo(x+Math.cos(a)*rr,y+Math.sin(a)*rr*.8);}
+    h.closePath();h.fillStyle=fill;h.fill();if(edge){h.strokeStyle=edge;h.lineWidth=.35;h.stroke();}
+  }
+  function blob(h,x,y,r,rgb,a){const g=h.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,`rgba(${rgb},${a})`);g.addColorStop(1,`rgba(${rgb},0)`);h.fillStyle=g;h.fillRect(x-r,y-r,r*2,r*2);}
   function renderHi(){
-    const d=range.value/100;
+    const d=cond==="saudavel"?0:range.value/100,h=hctx;
     range.style.setProperty("--p",range.value+"%");
-    hud.textContent= d<.25?"Ilustração · couro cabeludo saudável": d<.65?"Ilustração · início de miniaturização":"Ilustração · rarefação avançada";
+    hud.textContent="Ilustração · "+INFO[cond].hud;
     const S=Z*Math.min(dpr,1.5);
-    hi.width=W*S;hi.height=H*S;hctx.setTransform(S,0,0,S,0,0);
+    hi.width=W*S;hi.height=H*S;h.setTransform(S,0,0,S,0,0);h.lineCap="round";h.lineJoin="round";
     // skin
-    const g=hctx.createRadialGradient(W*.5,H*.45,20,W*.5,H*.5,Math.max(W,H)*.75);
-    g.addColorStop(0,"#E6C3A6");g.addColorStop(1,"#C79A7C");
-    hctx.fillStyle=g;hctx.fillRect(0,0,W,H);
+    const tint=SKIN[cond],g=h.createRadialGradient(W*.5,H*.45,20,W*.5,H*.5,Math.max(W,H)*.75);
+    g.addColorStop(0,tint[0]);g.addColorStop(1,tint[1]);
+    h.fillStyle=g;h.fillRect(0,0,W,H);
     // pores/texture
-    for(const u of units){ hctx.fillStyle=`rgba(150,95,70,${0.08+u.spots*0.08})`; hctx.beginPath();hctx.arc((u.x+u.r2*37)%W,(u.y+u.r3*29)%H,.6+u.spots*1.1,0,7);hctx.fill(); }
+    for(const f of flecks){h.fillStyle=`rgba(150,95,70,${.05+f.s*.07})`;h.beginPath();h.arc(f.x,f.y,.5+f.r*1.1,0,7);h.fill();}
+    // irritation patches
+    if(cond==="caspa"||cond==="foliculite"){for(const u of units)if(u.r5<.02)blob(h,u.x,u.y,30+u.r3*40,"214,96,84",.08+.2*d);}
+    // alopecia areata patch
+    const px=W*.56,py=H*.5,prx=W*(.1+.16*d),pry=H*(.2+.26*d);
+    if(cond==="areata"&&d>0){h.save();h.translate(px,py);h.scale(1,pry/prx);blob(h,0,0,prx*1.05,"246,222,200",.55);h.restore();}
+    const pust=[];
     for(const u of units){
-      // unit loses hairs with rarefaction
-      const lose=d*(0.35+u.r1*0.9);
-      let c=u.count; if(lose>0.55)c=Math.max(0,c-1); if(lose>0.85)c=Math.max(0,c-1); if(lose>1.05)c=0;
+      let c=u.count,thin=0;
+      if(cond==="rarefacao"){const lose=d*(.45+u.r1*1.1);if(lose>.55)c--;if(lose>.85)c--;if(lose>1.05)c=0;c=Math.max(0,c);thin=d*.9;}
+      const q=cond==="areata"&&d>0?((u.x-px)/prx)**2+((u.y-py)/pry)**2:9;
       // follicle opening
-      hctx.fillStyle=c?"rgba(120,70,50,.45)":"rgba(120,70,50,.22)";
-      hctx.beginPath();hctx.ellipse(u.x,u.y,1.6,1.2,u.ang,0,7);hctx.fill();
+      h.fillStyle=`rgba(110,65,45,${c?.45:.25})`;h.beginPath();h.ellipse(u.x,u.y,1.5,1.1,u.ang,0,7);h.fill();
+      if(q<1){ // inside the bald patch
+        if(u.r2<.22){h.fillStyle="rgba(214,168,78,.6)";h.beginPath();h.arc(u.x,u.y,1.5+u.r3*1.2,0,7);h.fill();}
+        else if(u.r2<.3){h.fillStyle="#1E1510";h.beginPath();h.arc(u.x,u.y,1.1,0,7);h.fill();}
+        else if(u.r2<.4&&q>.3){ // exclamation-mark hair: thick tip, thin base
+          const L=7+u.r3*6,a=u.ang,ex=u.x+Math.cos(a)*L,ey=u.y+Math.sin(a)*L,nx=-Math.sin(a),ny=Math.cos(a);
+          h.fillStyle="#2A1D16";h.beginPath();h.moveTo(u.x+nx*.25,u.y+ny*.25);h.lineTo(ex+nx*.9,ey+ny*.9);h.lineTo(ex-nx*.9,ey-ny*.9);h.lineTo(u.x-nx*.25,u.y-ny*.25);h.fill();
+        }
+        continue;
+      }
+      if(q<1.6)c=Math.max(0,c-(q<1.3?2:1));
+      const infl=cond==="foliculite"&&u.r4<.03+.14*d;
+      if(infl){pust.push(u);const R=4+5*d+u.r3*3;blob(h,u.x,u.y,R*1.8,"200,60,55",.5);h.fillStyle="rgba(206,86,76,.85)";h.beginPath();h.arc(u.x,u.y,R*.5,0,7);h.fill();}
       for(let k=0;k<c;k++){
-        const mini=d>0.2&&(u.r2+k*0.23)%1<d*0.9; // miniaturized hair
-        const w=mini?0.35+u.r3*0.25:1.05+u.r3*0.35;
-        const L=(mini?0.45:1)*u.len*(0.9+k*0.08);
-        const a=u.ang+(k-1)*0.16;
-        hctx.strokeStyle=mini?"rgba(92,62,44,.75)":"#2A1D16";
-        hctx.lineWidth=w;hctx.lineCap="round";
-        hctx.beginPath();hctx.moveTo(u.x,u.y);
-        hctx.quadraticCurveTo(u.x+Math.cos(a)*L*.5+u.bend,u.y+Math.sin(a)*L*.5-u.bend*.4,u.x+Math.cos(a+0.15)*L,u.y+Math.sin(a+0.15)*L);
-        hctx.stroke();
-        if(!mini){hctx.strokeStyle="rgba(255,230,200,.18)";hctx.lineWidth=w*.35;hctx.stroke();}
+        const mini=thin>.18&&(u.r2+k*.23)%1<thin;
+        const w=mini?.35+u.r3*.25:.95+u.r3*.4;
+        let L=(mini?.4:1)*u.len*(.9+k*.08);
+        if(infl&&k===0&&u.r5<.6)L*=.2; // broken hair
+        const a=u.ang+(k-1)*.14;
+        let ex=u.x+Math.cos(a+.12)*L,ey=u.y+Math.sin(a+.12)*L,cx=u.x+Math.cos(a)*L*.5+u.bend,cy=u.y+Math.sin(a)*L*.5-u.bend*.4;
+        if(cond==="oleo"){ // sebum glues hairs into clumps
+          const cell=26,gx=(Math.floor(u.x/cell)+.5)*cell,gy=(Math.floor(u.y/cell)+.5)*cell,m=.25+.6*d;
+          ex+=(gx+Math.cos(u.ang)*u.len*1.05-ex)*m;ey+=(gy+Math.sin(u.ang)*u.len*1.05-ey)*m;
+          cx=(u.x+ex)/2+u.bend*.4;cy=(u.y+ey)/2;
+        }
+        const t=Math.round(30+u.tone*16);
+        h.strokeStyle=mini?"rgba(92,62,44,.75)":`rgb(${t+10},${t-2},${t-10})`;
+        h.lineWidth=w;h.beginPath();h.moveTo(u.x,u.y);h.quadraticCurveTo(cx,cy,ex,ey);h.stroke();
+        const gl=cond==="oleo"?.12+.18*d:mini?0:.16;
+        if(gl){h.strokeStyle=`rgba(255,235,210,${gl})`;h.lineWidth=w*.35;h.stroke();}
       }
     }
+    if(cond==="caspa"){
+      for(const u of units)if(u.r4<.12+.5*d){const n=1+Math.floor(u.r3*(1+3*d));for(let i=0;i<n;i++)flake(h,u.x+(u.r5-.5)*6*i,u.y+(u.r1-.5)*5*i,1.4+u.r5*2+d*3.2,u.r2*6+i,6,"rgba(250,247,238,.9)","rgba(170,150,130,.5)");}
+      for(const f of flecks)if(f.s<.05+.18*d)flake(h,f.x,f.y,1+f.r*2.4+d*2,f.a,f.k,`rgba(246,242,232,${.6+f.r*.3})`,"rgba(170,150,130,.4)");
+    }
+    if(cond==="oleo"){
+      h.fillStyle=`rgba(236,196,96,${.08+.16*d})`;h.fillRect(0,0,W,H);
+      for(const u of units)if(u.r4<.08+.25*d)flake(h,u.x+2,u.y+1,1.2+u.r3*2+d*2,u.r2*6,7,"rgba(228,192,110,.75)","rgba(170,125,60,.5)");
+      for(const f of flecks)if(f.s<.02+.07*d)blob(h,f.x,f.y,3+f.r*7,"255,250,235",.45+.3*d);
+    }
+    for(const u of pust)if(u.r5<.55){const R=4+5*d+u.r3*3;h.fillStyle="rgba(248,226,150,.95)";h.beginPath();h.arc(u.x,u.y,R*.32,0,7);h.fill();h.fillStyle="rgba(255,255,255,.7)";h.beginPath();h.arc(u.x-R*.1,u.y-R*.12,R*.1,0,7);h.fill();}
     // vignette
-    const v=hctx.createRadialGradient(W/2,H/2,Math.min(W,H)*.3,W/2,H/2,Math.max(W,H)*.75);
+    const v=h.createRadialGradient(W/2,H/2,Math.min(W,H)*.3,W/2,H/2,Math.max(W,H)*.75);
     v.addColorStop(0,"rgba(0,0,0,0)");v.addColorStop(1,"rgba(40,20,10,.35)");
-    hctx.fillStyle=v;hctx.fillRect(0,0,W,H);
+    h.fillStyle=v;h.fillRect(0,0,W,H);
   }
+  function schedule(){if(pend)return;pend=true;requestAnimationFrame(()=>{pend=false;renderHi();kick();});}
+  function setCond(c){
+    cond=c;chips.forEach(b=>b.setAttribute("aria-pressed",b.dataset.c===c));
+    ctrl.classList.toggle("off",c==="saudavel");range.disabled=c==="saudavel";
+    notes.classList.add("swap");
+    setTimeout(()=>{notes.innerHTML=INFO[c].n.map(([b,t])=>`<div><b>${b}</b>${t}</div>`).join("");notes.classList.remove("swap");},220);
+    if(W)schedule();
+  }
+  chips.forEach(b=>b.addEventListener("click",()=>{picked=true;setCond(b.dataset.c);}));
   function size(){
     dpr=Math.min(devicePixelRatio||1,2);W=box.clientWidth;H=box.clientHeight;
     cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);
@@ -890,17 +965,17 @@ function updateTimeline(){
   function move(e){const r=box.getBoundingClientRect();tlx=Math.max(0,Math.min(W,e.clientX-r.left));tly=Math.max(0,Math.min(H,e.clientY-r.top));touched=true;kick();}
   box.addEventListener("pointermove",move);
   box.addEventListener("pointerdown",e=>{move(e);box.setPointerCapture&&box.setPointerCapture(e.pointerId);});
-  range.addEventListener("input",()=>{renderHi();kick();});
+  range.addEventListener("input",()=>{picked=true;schedule();});
   addEventListener("resize",()=>{clearTimeout(size._t);size._t=setTimeout(size,150);});
   // idle drift until user touches
   let t0=performance.now();
   function idle(now){ if(touched||reduced)return; const t=(now-t0)/1000; tlx=W*(.5+.22*Math.cos(t*.5)); tly=H*(.5+.18*Math.sin(t*.8)); kick(); requestAnimationFrame(idle); }
   new IntersectionObserver(([e])=>{ if(e.isIntersecting&&!W){size();requestAnimationFrame(idle);} },{rootMargin:"200px"}).observe(box);
-  // gentle auto-demo of the slider once when visible
-  let demo=false;
+  // tour the conditions once visible, until the visitor picks one
+  let tour=false;
   new IntersectionObserver(([e])=>{
-    if(e.isIntersecting&&!demo&&!reduced){demo=true;let v=0;const up=()=>{if(touched)return;v+=1.4;range.value=Math.min(v,70);renderHi();kick();if(v<70)requestAnimationFrame(up);};setTimeout(up,900);}
-  },{threshold:.6}).observe(box);
+    if(e.isIntersecting&&!tour&&!reduced){tour=true;let i=0;const step=()=>{if(picked)return;i=(i+1)%ORDER.length;setCond(ORDER[i]);setTimeout(step,3400);};setTimeout(step,2600);}
+  },{threshold:.5}).observe(box);
 })();
 
 /* ===== Booking form ===== */
